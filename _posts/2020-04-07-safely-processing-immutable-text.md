@@ -79,7 +79,7 @@ about buffer overflow and other issues associated with low-level functions such 
 
 ### Inside a string_view
 
-As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relaive_url }} ),
+As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ),
 just two internal data members facilitate the entire string_view functionality:
 
 - `data_`: a pointer to the first character of the array wrapped
