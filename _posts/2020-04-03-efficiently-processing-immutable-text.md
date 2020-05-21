@@ -12,7 +12,7 @@ main-memory usage and executable size. It can also make programs safer and more
 maintainable.
 
 This is Part 1 of a 3-part series on `std::string_view`. This part focuses on efficiency
-of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url) focuses on safety. Part 3 provides guidelines
+of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} ) focuses on safety. Part 3 provides guidelines
 on using `std::string_view`.
 <!--more-->
 
@@ -254,5 +254,5 @@ Overall, `std::string_view` provides more efficient ways to process immutable da
 `std::string` does. This efficiency is seen in object creation, general processing, and
 "modification".
 
-Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url )
+Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
 focuses on safety. Part 3 provides guidelines on using string_view.
