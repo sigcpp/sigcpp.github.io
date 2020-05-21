@@ -6,15 +6,14 @@ authors: smurthys
 
 Introduced in C++17, the STL class [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
 provides more efficient ways than [`std::string`](https://en.cppreference.com/w/cpp/string/basic_string)
-to process immutable (read only) text data. `std::string_view` also provides a safer means
-to perform read-only operations on character arrays, including
-[C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ). Overall, using
-`std::string_view` for read-only operations on text data can improve execution speed as
-well as reduce both main-memory usage and executable size.
+to process immutable (read only) text data. It also provides a safer means to perform
+read-only operations on character arrays. Overall, using `std::string_view` for read-only operations on text data can improve execution speed as well as reduce both
+main-memory usage and executable size. It can also make programs safer and more
+maintainable.
 
-This is Part 1 of a 2-part series on `std::string_view`: Part 1 focuses on efficiency of
-`std::string_view` over `std::string`. Part 2 focuses on safety and provides some
-guidelines on when to use `std::string_view`.
+This is Part 1 of a 3-part series on `std::string_view`. This part focuses on efficiency
+of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url) focuses on safety. Part 3 provides guidelines
+on using `std::string_view`.
 <!--more-->
 
 ### Creating string_view objects
@@ -27,23 +26,27 @@ A string_view object can be created using one of its [five constructors](https:/
 1. Default constructor: represents an empty string
 2. Copy constructor
 3. Custom constructor which accepts a character array and a size
-4. Custom constructor which accepts a C-string
-5. Custom constructor which accepts a range of characters as iterators
+4. Custom constructor which accepts a [C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} )
+5. Custom constructor which accepts a range of characters as iterators (not discussed
+   in this post)
 
-A string_view object can also be constructed from or be assigned from a `std::string`
+A string_view object can also be constructed using or be assigned from a `std::string`
 object because `std::string` defines an [operator](https://en.cppreference.com/w/cpp/string/basic_string/operator_basic_string_view)
 to return a string_view version of a string object. For example, the following creation
 operations are permitted:
 
 ```cpp
-std::string s;
+std::string s("hello");
 std::string_view sv1(s);  // initialize from string using copy ctor
 std::string_view sv2 = s; // initialize by assigning a string
 ```
 
+**Note:** [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#string_view-creation-means' | relative_url)
+of this series examines string_view creation in more detail.
+
 ### Creation efficiency
 
-For starters, compare the effect of creating an object to work with the text `hello`
+For starters, compare the effect of creating an object to work with the text `"hello"`
 using `std::string` and `std::string_view`. A comparison of the [code generated](https://godbolt.org/z/2tEvxC)
 shows the following differences:
 
@@ -51,7 +54,8 @@ shows the following differences:
    - 316 instructions: 32 in `main`
    - Calls to constructors of `std::allocator` and `std::basic_string`
    - Calls to destructors  of `std::allocator` and `std::basic_string`
-   - Several calls to constructors, destructors, and other functions in supporting classes
+   - Several calls to constructors, destructors, and other functions in supporting
+     classes
 
 2. `std::string_view s1("hello");`  
    - 95 instructions: 10 in `main`
@@ -61,12 +65,12 @@ shows the following differences:
 Because higher number of instructions does not necessarily mean poor code, and because it
 is possible `std::string` has greater fixed overhead, it is helpful to study the code
 generated when [two object declarations](https://godbolt.org/z/vjLVGt) are made: The
-`std::string` approach ("string approach" going forward) has 24 additional instructions in
-`main`, whereas the `std::string_view` approach ("string_view approach" going forward) has
-just four additional instructions in `main`. Thus, simplistically speaking, we could say
-that each declaration of string object adds about 24 instructions, whereas each
-declaration of a string_view object adds only about four instructions. (Revise the code to
-declare three objects in each approach and see if the growth numbers hold.)
+`std::string` approach ("string approach" going forward) has 24 additional instructions
+in `main`, whereas the `std::string_view` approach ("string_view approach" going
+forward) has just four additional instructions in `main`. Thus, simplistically speaking,
+we could say that each declaration of string object adds about 24 instructions, whereas
+each declaration of a string_view object adds only about four instructions. (Revise the
+code to declare three objects in each approach and see if the growth numbers hold.)
 
 However, the more salient observation is that the string approach results in multiple
 calls to elaborate functions which can reduce execution speed. For example, Listing A
@@ -129,11 +133,12 @@ const std::string_view csv{"pack my box with five dozen liquor jugs"};
 ### Processing efficiency
 
 Generally speaking, `std::string_view` supports only the sub-set of the functionality of
-`std::string` that pertains to the following operations: reading array elements, obtaining
-read-only iterators, finding array size, extracting a read-only sub-string, comparing with
-another string_view, and searching for sub-strings. In addition to these functions, the
-`<string_view>` header includes functions to perform relational operations on string_view
-objects and a function to insert a string_view to an output stream.
+`std::string` that pertains to the following operations: reading array elements,
+obtaining read-only iterators, finding test size, extracting a read-only sub-string,
+comparing with another string_view, and searching for sub-strings. In addition to these
+functions, the `<string_view>` header includes functions to perform relational
+operations on string_view objects and a function to insert a string_view to an output
+stream.
 
 In short, `std::string_view` is designed to be a drop-in replacement for `std::string` as
 far as read-only operations are concerned. However, some of the string_view operations
@@ -183,8 +188,8 @@ int main() {
 
 ### Modification efficiency
 
-Contrary to what their names suggest, the modifier functions of string_view do *not* alter
-the character array wrapped. Instead, they alter two internal data members used to
+Contrary to what their names suggest, the modifier functions of string_view do *not*
+alter the character array wrapped. Instead, they alter two internal data members used to
 provide the entire string_view functionality. The two internal data members are:
 
 - `data_`: a pointer to the first character of the array wrapped
@@ -243,11 +248,11 @@ A [comparison](https://godbolt.org/z/53RF7r) of word-extraction through modifica
 the string and string_view approaches shows that the string approach is slightly slower
 (20%-160%).
 
-### Part-1 Summary
+### Part-1 summary
 
 Overall, `std::string_view` provides more efficient ways to process immutable data than
 `std::string` does. This efficiency is seen in object creation, general processing, and
 "modification".
 
-Whereas this part of the 2-part series on string_view focuses on efficiency, Part 2
-focuses on safety and offers some guidelines on when to use string_view.
+Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url )
+focuses on safety. Part 3 provides guidelines on using string_view.
