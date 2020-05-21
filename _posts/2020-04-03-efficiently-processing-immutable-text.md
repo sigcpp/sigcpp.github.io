@@ -41,8 +41,8 @@ std::string_view sv1(s);  // initialize from string using copy ctor
 std::string_view sv2 = s; // initialize by assigning a string
 ```
 
-**Note:** [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#string_view-creation-means' | relative_url)
-of this series examines string_view creation in more detail.
+**Note:** [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#string_view-creation-means' | relative_url }} )
+of this series examines string_view creation means in more detail.
 
 ### Creation efficiency
 
