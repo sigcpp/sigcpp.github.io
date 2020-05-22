@@ -198,11 +198,12 @@ provide the entire string_view functionality. The two internal data members are:
 (In contrast, many of the modifier functions of `std::string` actually alter data.)
 
 The modifier functions `remove_prefix` and `remove_suffix` have the effect of reducing
-the part of the array on which the string_view can operate. Function `remove_prefix`
+the part of the array on which the string_view can operate. Function [`remove_prefix`](https://en.cppreference.com/w/cpp/string/basic_string_view/remove_prefix)
 advances the data pointer by the specified number of positions and also reduces size by
-the same amount. In contrast, `remove_suffix` leaves the data pointer unchanged but
-reduces size by the specified number. This simple approach to modification provides
-string_view considerable efficiency over the function [`erase`](https://en.cppreference.com/w/cpp/string/basic_string/erase)
+the same amount. In contrast, [`remove_suffix`](https://en.cppreference.com/w/cpp/string/basic_string_view/remove_suffix)
+leaves the data pointer unchanged but reduces size by the specified count. This simple
+approach to modification provides string_view considerable efficiency over the function
+[`erase`](https://en.cppreference.com/w/cpp/string/basic_string/erase)
 defined for string objects.
 
 **Note:** It is **not** possible to restore the range of the array once it is reduced
