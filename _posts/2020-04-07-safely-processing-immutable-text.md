@@ -237,7 +237,7 @@ std::size_t vowel_count(std::string_view& sv) {
 
 ---
 
-### Recommended exercises
+### Exercises
 
 1. Answer the questions embedded in the bulleted list in the summary section.
 2. Write a C-string version of [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} )
