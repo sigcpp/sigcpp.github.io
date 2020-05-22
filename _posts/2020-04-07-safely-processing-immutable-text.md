@@ -193,14 +193,17 @@ Listing D shows two versions of a function to count vowels in some text. The fir
 version represents text as a C-string; the second represents text as a string_view. The listing aptly demonstrates that the string_view version is both simpler and safer:
 
 - No use of pointers
+
 - No need for `const` qualification: the C-string version needs `const` qualification;
   the string_view version does not need it, but that qualification is made as good practice. (In this case, there is some benefit to `const` qualifying the string_view
   parameter. What is the benefit?)
-- No undefined behavior: the C-string version has undefined behavior if the null
-  character is missing. This issue exists in two locations in the C-string version.
-  (What are those locations?)
+
 - Simpler code: the for-loop header and the test for vowel are both easier to
   comprehend (and thus to maintain) in the string_view version.
+
+- No undefined behavior: the C-string version has undefined behavior if the null
+  character is missing. (This issue exists in two locations in the C-string version.
+  What are those locations?)
 
 Whereas this part of the 3-part series on string_view focuses on safety concerns,
 [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
@@ -208,7 +211,7 @@ focuses on efficiency concerns. Part 3 provides guidelines on using string_view.
 
 ---
 
-##### Listing D: counting vowels using character array and string view ([run this code](https://godbolt.org/z/9poDfc))
+##### Listing D: counting vowels using character array and string view ([run this code](https://godbolt.org/z/BVLL2P))
 
 ```cpp
 // using C-string
@@ -241,15 +244,40 @@ std::size_t vowel_count(std::string_view& sv) {
 ### Exercises
 
 1. Answer the questions embedded in the bulleted list in the summary section.
-2. Write a C-string version of [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} )
+
+2. Which of the two versions of function `vowel_count` in Listing D is faster? Which
+   version is likely to use more run-time memory? Why?
+   - Use the code in [Listing A of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-a-measure-time-to-create-string-and-string_view-objects-run-this-code' | relative_url }} )
+   as a model to estimate wall times.
+
+3. Rewrite the string_view version of `vowel_count` using member function
+   [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ).
+   There are three different approaches to rewriting the function. Try all three
+   approaches and comment on which approach you prefer and state your rationale.  
+
+4. Rewrite the string_view version of `vowel_count` using member function
+   [`find_first_of`](https://en.cppreference.com/w/cpp/string/basic_string_view/find_first_of).
+   Which version is "better": the one in Listing D, or the rewritten one? Why?
+
+5. Write a C-string version of [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} )
    of this series.
-3. Write a program to extract words, where words may be separated by space, comma,
-   semi-colon, or period. Write both a C-string version and a string_view version.
-   - Do **not** use regular-expression or other facility that simplifies the task, but
-     feel free to use any other standard-library facility.
+
+6. Write a program to extract words from text, where words may be separated by space,
+   comma, semi-colon, or period. Write both a C-string version and a string_view version.
+   - Do **not** use regular-expression, stream extraction, or other such approach that
+     simplifies the task, but feel free to use any other standard-library facility.
    - Break down the code into appropriate functions.
    - `const` qualify all variables/parameters that represent immutable text.
-   - Hard-code the following immutable text in the program and use it in testing (no
-     user input required):
+   - Hard-code the following immutable text in the program and use it in testing. Just
+     for this exercise, do **not** read the text to process as user input at run time:
 
      `The quality mantra: improve the process; the process improves you.`
+
+   - Depending on the approach taken in the C-string version, hard-coding the text to
+     process as a `const` qualified variable/parameter could pose a challenge. Yet,
+     use a `const` qualified variable/parameter to represent the text to process exactly
+     as required in the preceding bullet.
+
+Contact [SIGCPP on Twitter](https://twitter.com/sigcpp) if you need clarifications on
+the exercises. Submit solutions by DM on Twitter (and only by DM). Place textual
+answers in GitHub repos or gists, and share Compiler-Explorer links to code.
