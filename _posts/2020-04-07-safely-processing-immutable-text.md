@@ -40,7 +40,7 @@ char a[]{'h','e','l','l','o'};
 std::string_view sv3{a, 5};    // from character array that is not a C-string
 
 std::string s{"hello"};
-std::string_view sv4(s);       // from string: approx. std::string_view sv4(s.c_str());
+std::string_view sv4(s);       // from string: approx std::string_view sv4(s.c_str());
 ```
 
 ---
@@ -112,11 +112,10 @@ is responsible for the array's management. Specifically, after a string_view obj
 served its purpose, the object owner should deallocate the array if the array was
 dynamically allocated.
 
-Thus, a string_view object should **never** outlive the character array it wraps. For
-example, a function should **not** return a string_view object that wraps a local array.
-
-Listing B shows examples of incorrect and acceptable uses of string_view. The comments in
-the code are self-explanatory.
+The bottom line is that a string_view object should **never** outlive the character array
+it wraps. For example, a function should **not** return a string_view object that wraps a
+local array. Listing B shows examples of incorrect and acceptable uses of string_view. The
+comments in the code are self-explanatory.
 
 ---
 
@@ -124,20 +123,20 @@ the code are self-explanatory.
 
 ```cpp
 std::string_view bad_idea() {
-    char z[]{"hello"};          // z is deallocated when function returns
+    char z[]{"hello"};          // z is deallocated when function exits
     return std::string_view(z); // bad: sv points to deallocated array
 }
 
 std::string_view another_bad_idea() {
-    std::string s{"hello"};     // s is deleted when function returns
+    std::string s{"hello"};     // s is deleted when function exits
     return std::string_view{s}; // bad: sv points to data in deleted object
 }
 
 void also_bad_idea() {
     char* p = new char[6]{};
     std::string_view sv{p};     // sv points to dynamically allocated array
-    delete[] p;                 // bad: sv still points to deallocated array
-    std::cout << sv.data();     // no longer safe to consume sv.data()
+    delete[] p;                 // sv still points to deallocated array
+    std::cout << sv.data();     // bad: no longer safe to consume sv.data()
 }
 
 std::string_view acceptable() {
@@ -157,17 +156,17 @@ int main() {
 
 ---
 
-Another issue to be aware of when using string_view is that the function member
-`data` is not guaranteed to return a C-string. Specifically, that function simply returns
-a pointer to the first character in the array that was passed to it. (It could return a
-pointer to a later character in the array if the function [`remove_prefix`]((/2020/04/03/efficiently-processing-immutable-text#modification-efficiency))
+Another issue to be aware of when using string_view is that the function member `data` is
+not guaranteed to return a C-string. Specifically, that function simply returns a pointer
+to the first character in the array that was passed to it. (It could return a pointer to a
+later character in the array if the function [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} )
 was called earlier.)
 
 Listing C illustrates safe and unsafe uses of the `data` function member.
 
 ---
 
-##### Listing C: safe and unsafe use of `data` function member
+##### Listing C: safe and unsafe uses of `data` function member
 
 ```cpp
 char z[]{"hello"};          // z is a C-string
@@ -227,7 +226,7 @@ std::size_t vowel_count(const char* z) {
 }
 
 // using std::string_view
-std::size_t vowel_count(std::string_view& sv) {
+std::size_t vowel_count(const std::string_view& sv) {
     const std::string_view vowels{"aeiouAEIOU"};
 
     std::size_t count{0};
@@ -252,22 +251,27 @@ std::size_t vowel_count(std::string_view& sv) {
 
 3. Rewrite the string_view version of `vowel_count` using member function
    [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ).
-   There are three different approaches to rewriting the function. Try all three
-   approaches and comment on which approach you prefer and state your rationale.  
+   There are three different approaches to this rewrite. Try all three approaches and
+   describe on the pros and cons of each approach. State which approach you prefer and
+   include a rationale.
 
 4. Rewrite the string_view version of `vowel_count` using member function
    [`find_first_of`](https://en.cppreference.com/w/cpp/string/basic_string_view/find_first_of).
    Which version is "better": the one in Listing D, or the rewritten one? Why?
 
-5. Write a C-string version of [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} )
-   of this series.
+5. Write a C-string version of the code in [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} ).
 
 6. Write a program to extract words from text, where words may be separated by space,
    comma, semi-colon, or period. Write both a C-string version and a string_view version.
+
    - Do **not** use regular-expression, stream extraction, or other such approach that
      simplifies the task, but feel free to use any other standard-library facility.
+
    - Break down the code into appropriate functions.
-   - `const` qualify all variables/parameters that represent immutable text.
+
+   - `const` qualify all variables/parameters that represent immutable text. Meeting this
+     requirement is quite important for this exercise.
+
    - Hard-code the following immutable text in the program and use it in testing. Just
      for this exercise, do **not** read the text to process as user input at run time:
 
