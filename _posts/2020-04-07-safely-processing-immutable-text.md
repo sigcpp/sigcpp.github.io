@@ -195,7 +195,7 @@ version represents text as a C-string; the second represents text as a string_vi
 - No need for `const` qualification: the C-string version needs `const` qualification;
   the string_view version does not need it, but that qualification is made as good practice. (In this case, there is some benefit to `const` qualifying the string_view
   parameter. What is the benefit?)
-- Does not require C-string: the C-string version has undefined behavior if the null
+- No undefined behavior: the C-string version has undefined behavior if the null
   character is missing. This issue exists in two locations in the C-string version.
   (What are those locations?)
 - Simpler code: the for-loop header and the test for vowel are both easier to
