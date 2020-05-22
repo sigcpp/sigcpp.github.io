@@ -34,12 +34,12 @@ is **not** the same as a string_view created from an empty C-string.
 ```cpp
 std::string_view sv1;          // from nothing: approximates std::string_view sv1("");
 
-std::string_view sv2("hello"); // from C-string
+std::string_view sv2{"hello"}; // from C-string
 
 char a[]{'h','e','l','l','o'};
-std::string_view sv3(a, 5);    // from character array that is not a C-string
+std::string_view sv3{a, 5};    // from character array that is not a C-string
 
-std::string s("hello");
+std::string s{"hello"};
 std::string_view sv4(s);       // from string: approx. std::string_view sv4(s.c_str());
 ```
 
@@ -48,7 +48,7 @@ std::string_view sv4(s);       // from string: approx. std::string_view sv4(s.c_
 A string_view created from a string object is the same as a string_view created using the
 C-string obtained via the [`c_str`](https://en.cppreference.com/w/cpp/string/basic_string/c_str)
 function on the string object. That is, the code associated with variable `sv4` could be
-rewritten as: `std::string_view sv4(s.c_str());`
+rewritten as: `std::string_view sv4{s.c_str()};`
 
 **Note:** As discussed in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#creating-string_view-objects' | relative_url }} ),
 creating a string_view from a string actually invokes an operator function in
@@ -129,19 +129,19 @@ std::string_view bad_idea() {
 }
 
 std::string_view another_bad_idea() {
-    std::string s("hello");     // s is deleted when function returns
-    return std::string_view(s); // bad: sv points to data in deleted object
+    std::string s{"hello"};     // s is deleted when function returns
+    return std::string_view{s}; // bad: sv points to data in deleted object
 }
 
 void also_bad_idea() {
     char* p = new char[6]{};
-    std::string_view sv(p);     // sv points to dynamically allocated array
+    std::string_view sv{p};     // sv points to dynamically allocated array
     delete[] p;                 // bad: sv still points to deallocated array
     std::cout << sv.data();     // no longer safe to consume sv.data()
 }
 
 std::string_view acceptable() {
-    return std::string_view("hello"); // OK: "hello" has static storage
+    return std::string_view{"hello"}; // OK: "hello" has static storage
 }
 
 void process(std::string_view& sv) {
@@ -150,7 +150,7 @@ void process(std::string_view& sv) {
 
 int main() {
     char z[]{"hello"};
-    std::string_view sv(z);
+    std::string_view sv{z};
     process(sv);                // OK: z lives until end of main
 }
 ```
@@ -170,15 +170,15 @@ Listing C illustrates safe and unsafe uses of the `data` function member.
 ##### Listing C: safe and unsafe use of `data` function member
 
 ```cpp
-char z[]{"hello"};       // z is a C-string
-std::string_view sv5(z);
-std::cout << sv5.data(); // OK: sv5 wraps a C-string
+char z[]{"hello"};          // z is a C-string
+std::string_view sv5{z};
+std::cout << sv5.data();    // OK: sv5 wraps a C-string
 
-char a[]{'h','e'};       // a is not a C-string
-std::string_view sv6(a);
-std::cout << sv6.data(); // unsafe: sv6 does not wrap a C-string
+char a[]{'h','e'};          // a is not a C-string
+std::string_view sv6{a,2};
+std::cout << sv6.data();    // unsafe: sv6 does not wrap a C-string
 
-std::cout << sv6;        // OK: insertion operator is safely overloaded
+std::cout << sv6;           // OK: insertion operator is safely overloaded
 ```
 
 ---
