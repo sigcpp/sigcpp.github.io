@@ -162,8 +162,11 @@ a pointer to the first character in the array that was passed to it. (It could r
 pointer to a later character in the array if the function [`remove_prefix`]((/2020/04/03/efficiently-processing-immutable-text#modification-efficiency))
 was called earlier.)
 
-The following code segment illustrates the need for care when consuming the value returned
-by the `data` function.
+Listing C illustrates safe and unsafe uses of the `data` function member.
+
+---
+
+##### Listing C: safe and unsafe use of `data` function member
 
 ```cpp
 char z[]{"hello"};       // z is a C-string
@@ -177,11 +180,75 @@ std::cout << sv6.data(); // unsafe: sv6 does not wrap a C-string
 std::cout << sv6;        // OK: insertion operator is safely overloaded
 ```
 
+---
+
 ### Part-2 summary
 
 Overall, `std::string_view` provides a cleaner and safer means to process immutable data
 than character arrays do. However, there are some safety concerns in using string_view,
 especially concerns related to object lifetime.
 
-Whereas this part of the 3-part series on string_view focuses on safety, [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
-focuses on efficiency. Part 3 provides guidelines on using string_view.
+Listing D shows two versions of a function to count vowels in some text. The first
+version represents text as a C-string; the second represents text as a string_view. The listing aptly demonstrates that the string_view version is both simpler and safer:
+
+- No use of pointers
+- No need for `const` qualification: the C-string version needs `const` qualification;
+  the string_view version does not need it, but that qualification is made as good practice. (In this case, there is some benefit to `const` qualifying the string_view
+  parameter. What is the benefit?)
+- Does not require C-string: the C-string version has undefined behavior if the null
+  character is missing. This issue exists in two locations in the C-string version.
+  (What are those locations?)
+- Simpler code: the for-loop header and the test for vowel are both easier to
+  comprehend (and thus to maintain) in the string_view version.
+
+Whereas this part of the 3-part series on string_view focuses on safety concerns,
+[Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
+focuses on efficiency concerns. Part 3 provides guidelines on using string_view.
+
+---
+
+##### Listing D: counting vowels using character array and string view ([run this code](https://godbolt.org/z/9poDfc))
+
+```cpp
+// using C-string
+std::size_t vowel_count(const char* z) {
+    const char vowels[]{"aeiouAEIOU"};
+
+    std::size_t count{0};
+    for (std::size_t i = 0; z[i] != '\0'; ++i)
+        if (std::strchr(vowels, z[i]) != nullptr)
+            ++count;
+
+    return count;
+}
+
+// using std::string_view
+std::size_t vowel_count(std::string_view& sv) {
+    const std::string_view vowels{"aeiouAEIOU"};
+
+    std::size_t count{0};
+    for (auto c : sv)
+        if (vowels.find(c) != std::string_view::npos)
+            ++count;
+
+    return count;
+}
+```
+
+---
+
+### Recommended exercises
+
+1. Answer the questions embedded in the bulleted list in the summary section.
+2. Write a C-string version of [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} )
+   of this series.
+3. Write a program to extract words, where words may be separated by space, comma,
+   semi-colon, or period. Write both a C-string version and a string_view version.
+   - Do **not** use regular-expression or other facility that simplifies the task, but
+     feel free to use any other standard-library facility.
+   - Break down the code into appropriate functions.
+   - `const` qualify all variables/parameters that represent immutable text.
+   - Hard-code the following immutable text in the program and use it in testing (no
+     user input required):
+
+     `The quality mantra: improve the process; the process improves you.`
