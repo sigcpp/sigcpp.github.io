@@ -252,7 +252,7 @@ std::size_t vowel_count(const std::string_view& sv) {
 3. Rewrite the string_view version of `vowel_count` using member function
    [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ).
    There are three different approaches to this rewrite. Try all three approaches and
-   describe on the pros and cons of each approach. State which approach you prefer and
+   outline the pros and cons of each approach. State which approach you prefer and
    include a rationale.
 
 4. Rewrite the string_view version of `vowel_count` using member function
