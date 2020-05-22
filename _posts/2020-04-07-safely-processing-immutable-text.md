@@ -23,7 +23,7 @@ C-string, or from a `std::string` object.
 
 Listing A shows creation of four string_view objects, each using a different creation
 means. The object created from nothing (variable `sv1`) is effectively as if it is
-created from the empty C-string `""`. 
+created from the empty C-string `""`.
 
 **Note:** Internally, a [string_view created from nothing](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons-2)
 is **not** the same as a string_view created from an empty C-string.
@@ -95,7 +95,7 @@ and [`size`](https://en.cppreference.com/w/cpp/string/basic_string_view/size) pr
 access to the internal data members `data_` and `size_` respectively.
 
 **Note:** It is important to understand how a string_view is able to wrap any character
-array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/ZfFpZn)
+array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jh3qPR)
 prepared to illustrate the effects of different creation means of string view.
 
 ### Safety concerns about string_view
@@ -119,6 +119,7 @@ Listing B shows examples of incorrect and acceptable uses of string_view. The co
 the code are self-explanatory.
 
 ---
+
 ##### Listing B: examples of incorrect and acceptable uses of string_view
 
 ```cpp
