@@ -171,8 +171,9 @@ was called earlier.)
 
 Listing C illustrates safe and unsafe uses of the `data` function member. Part 3 discusses
 the details, but briefly, it is better to avoid accessing the `data` function altogether.
-For example, insert a string_view directly to an output stream (as is done with sv6 in the
-last line of Listing C) instead of inserting the value returned from the `data` function.
+For example, insert a string_view directly to an output stream (as is done with `sv6` in
+the last line of Listing C) instead of inserting the value returned from the `data`
+function.
 
 ---
 
