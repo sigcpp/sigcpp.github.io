@@ -28,8 +28,8 @@ Listing A shows creation of four string_view objects, each using a different cre
 means. The object created from nothing (variable `sv1`) is effectively as if it is
 created from the empty C-string `""`.
 
-**Note:** Internally, a [string_view created from nothing](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)
-is **not** the same as a string_view created from an empty C-string.
+**Note:** Internally, a string_view created from nothing is **not** the same as a
+string_view created from an empty C-string [[string.view.cons](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)].
 
 ---
 
