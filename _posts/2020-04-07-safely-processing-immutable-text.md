@@ -28,10 +28,11 @@ Listing A shows creation of four string_view objects, each using a different cre
 means. The object created from nothing (variable `sv1`) is effectively as if it is
 created from the empty C-string `""`.
 
-**Note:** Internally, a [string_view created from nothing](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons-2)
+**Note:** Internally, a [string_view created from nothing](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)
 is **not** the same as a string_view created from an empty C-string.
 
 ---
+
 ##### Listing A: creating string_view objects using four different means
 
 ```cpp
@@ -43,7 +44,7 @@ char a[]{'h','e','l','l','o'};
 std::string_view sv3{a, 5};    // from character array that is not a C-string
 
 std::string s{"hello"};
-std::string_view sv4(s);       // from string: approx std::string_view sv4(s.c_str());
+std::string_view sv4{s};       // from string: approx std::string_view sv4{s.c_str()};
 ```
 
 ---
@@ -54,7 +55,7 @@ function on the string object. That is, the code associated with variable `sv4` 
 rewritten as: `std::string_view sv4{s.c_str()};`
 
 **Note:** As discussed in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#creating-string_view-objects' | relative_url }} ),
-creating a string_view from a string actually invokes an operator function in
+creating a string_view from a string object actually invokes an operator function in
 `std::string`.
 
 ### Simplicity and safety over character arrays
@@ -99,11 +100,11 @@ access to the internal data members `data_` and `size_` respectively.
 
 **Note:** It is important to understand how a string_view is able to wrap any character
 array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jh3qPR)
-prepared to illustrate the effects of different creation means of string view.
+prepared to illustrate the effect of different creation means on the internals of a string_view object.
 
-### Safety concerns about string_view
+### Safety issues with string_view
 
-There are three major issues when using string_views:
+There are three major safety-related issues when using string_views:
 
 - assuming a string_view object makes a copy of the character array it wraps;
 - having a string_view object outlive the character array it wraps; and
@@ -127,7 +128,7 @@ comments in the code are self-explanatory.
 ```cpp
 std::string_view bad_idea() {
     char z[]{"hello"};          // z is deallocated when function exits
-    return std::string_view(z); // bad: sv points to deallocated array
+    return std::string_view{z}; // bad: sv points to deallocated array
 }
 
 std::string_view another_bad_idea() {
@@ -194,11 +195,11 @@ especially concerns related to object lifetime.
 Listing D shows two versions of a function to count vowels in some text. The first
 version represents text as a C-string; the second represents text as a string_view. The listing aptly demonstrates that the string_view version is both simpler and safer:
 
-- No use of pointers
+- No pointers
 
 - No need for `const` qualification: the C-string version needs `const` qualification;
-  the string_view version does not need it, but that qualification is made as good practice. (In this case, there is some benefit to `const` qualifying the string_view
-  parameter. What is the benefit?)
+  the string_view version does not need it, but that qualification is made as good practice. (In this case, there is a benefit to `const` qualifying the string_view
+  parameter. What is that benefit?)
 
 - Simpler code: the for-loop header and the test for vowel are both easier to
   comprehend (and thus to maintain) in the string_view version.
@@ -207,9 +208,8 @@ version represents text as a C-string; the second represents text as a string_vi
   character is missing. (This issue exists in two locations in the C-string version.
   What are those locations?)
 
-Whereas this part of the 3-part series on string_view focuses on safety concerns,
-[Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
-focuses on efficiency concerns. Part 3 provides guidelines on using string_view.
+**Note:** Be sure to read Part 3 of this series where I provide some guidelines on using
+string_view. (I will add the link here when Part 3 is published.)
 
 ---
 
@@ -250,7 +250,7 @@ std::size_t vowel_count(const std::string_view& sv) {
 2. Which of the two versions of function `vowel_count` in Listing D is faster? Which
    version is likely to use more run-time memory? Why?
    - Use the code in [Listing A of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-a-measure-time-to-create-string-and-string_view-objects-run-this-code' | relative_url }} )
-   as a model to estimate wall times.
+   as a model to measure wall times.
 
 3. Rewrite the string_view version of `vowel_count` using member function
    [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ).
