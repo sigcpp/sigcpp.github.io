@@ -2,6 +2,9 @@
 title: "Safely processing immutable text"
 date: 2020-04-07
 authors: smurthys
+cpp_level: intermediate
+cpp_version: "C++17"
+reader_activity: exercises
 ---
 
 This is Part 2 of a 3-part series on [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view).
@@ -281,5 +284,3 @@ std::size_t vowel_count(const std::string_view& sv) {
      process as a `const` qualified variable/parameter could pose a challenge. Yet,
      use a `const` qualified variable/parameter to represent the text to process exactly
      as required in the preceding bullet.
-
-{% include twitter-submission.html %}
