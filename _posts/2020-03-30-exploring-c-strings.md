@@ -2,6 +2,9 @@
 title: "Exploring C-strings"
 date: 2020-03-30
 authors: smurthys
+cpp_level: intermediate
+cpp_version: "Any version"
+reader_activity: quiz
 ---
 
 This post discusses the use of C-strings in C++. It defines the terms C-string and NTBS

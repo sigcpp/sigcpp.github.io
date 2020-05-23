@@ -2,6 +2,8 @@
 title: "Efficiently processing immutable text"
 date: 2020-04-03
 authors: smurthys
+cpp_level: intermediate
+cpp_version: "C++17"
 ---
 
 Introduced in C++17, the STL class [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)

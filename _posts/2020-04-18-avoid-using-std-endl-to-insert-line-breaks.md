@@ -2,6 +2,8 @@
 title: "Avoid using std::endl to insert line breaks"
 date: 2020-04-18
 authors: smurthys
+cpp_level: introductory
+cpp_version: "Any version"
 ---
 
 To insert a line break into an output stream, just insert the newline character (`'\n'`) instead of inserting `std::endl`. For example, write `std::cout << "hello world" << '\n';` instead of writing `std::cout << "hello world" << std::endl;`.
