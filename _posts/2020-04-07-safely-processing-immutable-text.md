@@ -77,7 +77,7 @@ array.
 Also, because a string_view is immutable by design, it eliminates the many `const`
 qualifications that would be necessary to guarantee immutability of character arrays.
 
-Lastly, The string_view approach is safer because the programmer does not have to worry
+Lastly, the string_view approach is safer because the programmer does not have to worry
 about buffer overflow and other issues associated with low-level functions such as
 `std::strcmp` and `std::strchr`.
 
@@ -118,43 +118,46 @@ dynamically allocated.
 
 The bottom line is that a string_view object should **never** outlive the character array
 it wraps. For example, a function should **not** return a string_view object that wraps a
-local array. Listing B shows examples of incorrect and acceptable uses of string_view. The
-comments in the code are self-explanatory.
+local array. Listing B shows examples of acceptable and unacceptable uses of
+string_view. The comments in the code are self-explanatory.
+
+**Note:** Carefully study the differences between functions `bad_idea` and
+`also_acceptable` in Listing B.
 
 ---
 
-##### Listing B: examples of incorrect and acceptable uses of string_view
+##### Listing B: examples of acceptable and unacceptable uses of string_view
 
 ```cpp
 std::string_view bad_idea() {
-    char z[]{"hello"};          // z is deallocated when function exits
-    return std::string_view{z}; // bad: sv points to deallocated array
+    char z[]{"hello"};          // z is deallocated when this function ends
+    return std::string_view{z}; // bad: returned object wraps deallocated array
 }
 
 std::string_view another_bad_idea() {
-    std::string s{"hello"};     // s is deleted when function exits
-    return std::string_view{s}; // bad: sv points to data in deleted object
+    std::string s{"hello"};     // s is deleted when this function ends
+    return std::string_view{s}; // bad: returned obj wraps data in deleted string
 }
 
-void also_bad_idea() {
+std::string_view also_bad_idea() {
     char* p = new char[6]{};
-    std::string_view sv{p};     // sv points to dynamically allocated array
-    delete[] p;                 // sv still points to deallocated array
-    std::cout << sv.data();     // bad: no longer safe to consume sv.data()
+    std::string_view sv{p};     // sv wraps dynamically allocated array
+    delete[] p;                 // sv still wraps deallocated array
+    return sv;                  // bad: returned object wraps deallocated array
 }
 
-std::string_view acceptable() {
-    return std::string_view{"hello"}; // OK: "hello" has static storage
+void possibly_acceptable(std::string_view& sv) {
+    std::cout << sv;            // safe only if sv wraps a legit array
 }
 
-void process(std::string_view& sv) {
-    std::cout << sv;            // safe only if sv points to a legit array
-}
-
-int main() {
-    char z[]{"hello"};
+void acceptable() {
+    char z[]{"hello"};          // z is deallocated when this function ends
     std::string_view sv{z};
-    process(sv);                // OK: z lives until end of main
+    possibly_acceptable(sv);    // OK: z lives until end of this function
+}
+
+std::string_view also_acceptable() {
+    return std::string_view{"hello"}; // OK: "hello" has static storage
 }
 ```
 
@@ -162,11 +165,15 @@ int main() {
 
 Another issue to be aware of when using string_view is that the function member `data` is
 not guaranteed to return a C-string. Specifically, that function simply returns a pointer
-to the first character in the array that was passed to it. (It could return a pointer to a
-later character in the array if the function [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} )
+to the first character in the array that was passed to it. (It could return a pointer to
+a later character in the array if the function [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} )
 was called earlier.)
 
-Listing C illustrates safe and unsafe uses of the `data` function member.
+Listing C illustrates safe and unsafe uses of the `data` function member. The guidelines
+in Part 3 discusses the details, but briefly, it is better to avoid accessing the `data`
+function altogether. For example, insert a string_view directly to an output stream (as
+is done with sv6 in the last line of Listing C) instead of inserting the value returned
+from the `data` function.
 
 ---
 
@@ -197,9 +204,10 @@ version represents text as a C-string; the second represents text as a string_vi
 
 - No pointers
 
-- No need for `const` qualification: the C-string version needs `const` qualification;
-  the string_view version does not need it, but that qualification is made as good practice. (In this case, there is a benefit to `const` qualifying the string_view
-  parameter. What is that benefit?)
+- No need for `const` qualification: the C-string version **needs** `const`
+  qualification; the string_view version does not need it, but that qualification is
+  made as good practice. (In this case, there is a benefit to `const` qualifying the
+  string_view objects. What is that benefit?)
 
 - Simpler code: the for-loop header and the test for vowel are both easier to
   comprehend (and thus to maintain) in the string_view version.
