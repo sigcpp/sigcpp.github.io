@@ -2,7 +2,6 @@
 title: "Safely processing immutable text"
 date: 2020-04-07
 authors: smurthys
-tweet_url: "https://sigcpp.github.io"
 ---
 
 This is Part 2 of a 3-part series on [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view).
