@@ -38,8 +38,8 @@ to return a string_view version of a string object. For example, the following c
 operations are permitted:
 
 ```cpp
-std::string s("hello");
-std::string_view sv1(s);  // initialize from string using copy ctor
+std::string s{"hello"};
+std::string_view sv1{s};  // initialize from string using copy ctor
 std::string_view sv2 = s; // initialize by assigning a string
 ```
 
