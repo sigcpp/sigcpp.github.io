@@ -283,4 +283,4 @@ std::size_t vowel_count(const std::string_view& sv) {
      use a `const` qualified variable/parameter to represent the text to process exactly
      as required in the preceding bullet.
 
-{%- include twitter-submission.html -%}
+{%- include twitter-submission.html twitter_url="{{ post.twitter_url }}" -%}
