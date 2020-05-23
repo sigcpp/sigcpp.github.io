@@ -2,6 +2,7 @@
 title: "Safely processing immutable text"
 date: 2020-04-07
 authors: smurthys
+tweet_url: "https://sigcpp.github.io"
 ---
 
 This is Part 2 of a 3-part series on [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view).
@@ -282,6 +283,4 @@ std::size_t vowel_count(const std::string_view& sv) {
      use a `const` qualified variable/parameter to represent the text to process exactly
      as required in the preceding bullet.
 
-Contact [SIGCPP on Twitter](https://twitter.com/sigcpp) if you need clarifications on
-the exercises. Submit solutions by DM on Twitter (and only by DM). Place textual
-answers in GitHub repos or gists, and share Compiler-Explorer links to code.
+{%- include twitter-submission.html -%}
