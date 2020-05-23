@@ -62,7 +62,7 @@ low-level C-style functions. For example, we could simply test if `sv1 > sv2`, i
 testing if `std::strcmp(z1, z2) > 0`, where `z1` and `z2` represent C-strings, and sv1
 and sv2 are corresponding string_view objects. Likewise, we can use the function member
 `find` instead of the low-level functions `std::strchr`, and `std::strstr`. (The
-string_view function `find` can find both single characters and multi-character texts.)
+string_view function `find` can find both single-character and multi-character texts.)
 
 The string_view approach also has the advantage that it works with any character array,
 not just with C-strings. As a result, there is no need to resort to using functions such
