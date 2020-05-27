@@ -7,22 +7,23 @@ cpp_version: "C++17"
 reader_activity: exercises
 ---
 
-This is Part 2 of a 3-part series on [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view).
-This part focuses on the safety `std::string_view` provides over character arrays, and on
-the safety considerations when using `std::string_view`.
+This is Part 2 of a 3-part series on `std::string_view`. This part focuses on the safety
+`std::string_view` provides over character arrays, and on the safety considerations to be
+made when using `std::string_view`.
 
-[Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} ) focuses on efficiency of
-`std::string_view` over [`std::string`](https://en.cppreference.com/w/cpp/string/basic_string).
-Part 3 provides guidelines on using `std::string_view`.
+[Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
+focuses on efficiency of `std::string_view` over `std::string`. Part 3 provides guidelines
+on using `std::string_view`.
 <!--more-->
 
 ### String_view creation means
 
 As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#creating-string_view-objects' | relative_url }} )
-of this series, a string_view object is simply a read-only wrapper around a character
-array. This statement is true regardless of the creation means used: from nothing, from a
-[C-string]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ), from a character array that is not a
-C-string, or from a `std::string` object.
+of this series, [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
+is simply a read-only wrapper around a character array. This statement is true regardless
+of the creation means used: from nothing, from a [C-string]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ),
+from a character array that is not a C-string, or from a [`std::string`](https://en.cppreference.com/w/cpp/string/basic_string)
+object.
 
 Listing A shows creation of four string_view objects, each using a different creation
 means. The object created from nothing (variable `sv1`) is effectively as if it is
