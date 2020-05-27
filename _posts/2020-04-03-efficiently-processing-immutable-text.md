@@ -29,7 +29,7 @@ A string_view object can be created using one of its [five constructors](https:/
 1. Default constructor: represents an empty string
 2. Copy constructor
 3. Custom constructor which accepts a character array and a size
-4. Custom constructor which accepts a [C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} )
+4. Custom constructor which accepts a [C-string]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} )
 5. Custom constructor which accepts a range of characters as iterators (not discussed
    in this post)
 
@@ -52,7 +52,7 @@ of this series examines string_view creation means in more detail.
 
 For starters, compare the effect of creating an object to work with the text `"hello"`
 using `std::string` and `std::string_view`. A [comparison](https://godbolt.org/z/2tEvxC)
-of the [code generated] shows the following differences:
+of the code generated shows the following differences:
 
 1. `std::string s1("hello");`
    - 316 instructions: 32 in `main`
