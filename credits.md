@@ -2,7 +2,8 @@
 title: "Credits"
 ---
 
-We are grateful for the people (whose work) and docs we frequently consult, and the tools we routinely use:
+We are grateful for the people and companies whose work we frequently use, much of it for
+free.
 
 ### C++
 
