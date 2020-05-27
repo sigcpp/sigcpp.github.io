@@ -59,3 +59,10 @@ ul.posts li h2.page-title, section h2.page-title {
   margin-top: 5px;
   margin-bottom: 10px;
 }
+
+a + span.external {
+  vertical-align: super;
+  font-size: 90%;
+  font-weight: bolder;
+  color: blue;
+}
