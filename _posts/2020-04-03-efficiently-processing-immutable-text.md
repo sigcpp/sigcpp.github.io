@@ -6,10 +6,10 @@ cpp_level: intermediate
 cpp_version: "C++17"
 ---
 
-Introduced in C++17, the STL class [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
-provides more efficient ways than [`std::string`](https://en.cppreference.com/w/cpp/string/basic_string)
-to process immutable (read only) text data. It also provides a safer means to perform
-read-only operations on character arrays. Overall, using `std::string_view` for read-only operations on text data can improve execution speed as well as reduce both
+Introduced in C++17, the STL class `std::string_view` provides more efficient ways than
+`std::string` to process immutable (read only) text data. It also provides a safer means
+to perform read-only operations on character arrays. Overall, using `std::string_view` for
+read-only operations on text data can improve execution speed as well as reduce both
 main-memory usage and executable size. It can also make programs safer and more
 maintainable.
 
@@ -20,8 +20,9 @@ on using `std::string_view`.
 
 ### Creating string_view objects
 
-A string_view is just a read-only wrapper around a character array ("a constant
-contiguous sequence of `char`-like objects", to be precise [[string.view](https://timsong-cpp.github.io/cppwp/n4659/string.view)]).
+[`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view) is just a
+read-only wrapper around a character array ("a constant contiguous sequence of `char`-like
+objects", to be precise [[string.view](https://timsong-cpp.github.io/cppwp/n4659/string.view)]).
 
 A string_view object can be created using one of its [five constructors](https://en.cppreference.com/w/cpp/string/basic_string_view/basic_string_view):
 
@@ -32,8 +33,9 @@ A string_view object can be created using one of its [five constructors](https:/
 5. Custom constructor which accepts a range of characters as iterators (not discussed
    in this post)
 
-A string_view object can also be constructed using or be assigned from a `std::string`
-object because `std::string` defines an [operator](https://en.cppreference.com/w/cpp/string/basic_string/operator_basic_string_view)
+A string_view object can also be constructed using or be assigned from a
+[`std::string`](https://en.cppreference.com/w/cpp/string/basic_string) object because
+`std::string` defines an [operator](https://en.cppreference.com/w/cpp/string/basic_string/operator_basic_string_view)
 to return a string_view version of a string object. For example, the following creation
 operations are permitted:
 
@@ -49,8 +51,8 @@ of this series examines string_view creation means in more detail.
 ### Creation efficiency
 
 For starters, compare the effect of creating an object to work with the text `"hello"`
-using `std::string` and `std::string_view`. A comparison of the [code generated](https://godbolt.org/z/2tEvxC)
-shows the following differences:
+using `std::string` and `std::string_view`. A [comparison](https://godbolt.org/z/2tEvxC)
+of the [code generated] shows the following differences:
 
 1. `std::string s1("hello");`
    - 316 instructions: 32 in `main`
@@ -136,7 +138,7 @@ const std::string_view csv{"pack my box with five dozen liquor jugs"};
 
 Generally speaking, `std::string_view` supports only the sub-set of the functionality of
 `std::string` that pertains to the following operations: reading array elements,
-obtaining read-only iterators, finding test size, extracting a read-only sub-string,
+obtaining read-only iterators, finding text size, extracting a read-only sub-string,
 comparing with another string_view, and searching for sub-strings. In addition to these
 functions, the `<string_view>` header includes functions to perform relational
 operations on string_view objects and a function to insert a string_view to an output
