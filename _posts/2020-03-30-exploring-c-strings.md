@@ -140,7 +140,7 @@ character and the null character may appear only once:
 > with defined content has the value zero (the *terminating null* character); no other element in
 > the sequence has the value zero.
 
-In summary, C-strings and NTBSs are different with respect to to the number of null character
+In summary, C-strings and NTBSs are different with respect to the number of null character
 occurrences permitted and the required location of the null character. However, I have yet to
 encounter any situation where this subtlety causes an issue: If an array with multiple null
 characters or a misplaced null character is used where an NTBS is expected, only the portion of the
@@ -152,7 +152,7 @@ be aware of the subtle difference, especially when arguing a point, or when disc
 a job interview or other such scenario.
 
 The following program shows how one could create valid C-strings but invalid NTBSs. The program's
-output also shows that an NTBS with muliple null chars or misplaced null char is treated just as a
+output also shows that an NTBS with multiple null chars or misplaced null char is treated just as a
 C-string.
 
 ```cpp
