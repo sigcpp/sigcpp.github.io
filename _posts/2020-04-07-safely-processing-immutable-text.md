@@ -59,7 +59,7 @@ C-string obtained via the [`c_str`](https://en.cppreference.com/w/cpp/string/bas
 function on the string object. That is, the code associated with variable `sv4` could be
 rewritten as: `std::string_view sv4{s.c_str()};`
 
-**Note:** As discussed in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#creating-string_view-objects' | relative_url }} ),
+**Note:** As discussed in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#1' | relative_url }} ),
 creating a string_view from a string object actually invokes an operator function in
 `std::string`.
 
