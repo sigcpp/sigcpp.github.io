@@ -240,7 +240,7 @@ string_view. (I will add the link here when Part 3 is published.)
 
 {% include bookmark.html id="Listing D" %}
 
-##### Listing D: counting vowels using character array and string view ([run this code](https://godbolt.org/z/BVLL2P))
+##### Listing D: counting vowels using C-string and string_view ([run this code](https://godbolt.org/z/BVLL2P))
 
 ```cpp
 // using C-string
