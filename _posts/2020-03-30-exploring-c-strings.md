@@ -17,6 +17,8 @@ but make that choice on a case-by-case basis. Even when using a C-string, consid
 light-weight wrapper `std::string_view`.
 <!--more-->
 
+{% include bookmark.html id="1" %}
+
 ### Terms
 
 In C++, the informal term *C-string* is used to mean the "string" data structure defined in the C
@@ -47,7 +49,9 @@ as the number of bytes preceding the null character.
   sequence is represented or terminated. (`std::string` is a concrete implementation of this
   abstraction.)
 - Use the term NTBS to actually mean a null-terminated sequence of characters as defined in C++.
-  (A subtle difference between C-strings and NTBSs is examined [later in this post](#c-string-vs-ntbs).)
+  (A subtle difference between C-strings and NTBSs is examined [later in this post](#6).)
+
+{% include bookmark.html id="2" %}
 
 ### C-string literals
 
@@ -63,6 +67,8 @@ including the null character.
 The length of the literal `"hello"` is five, which is the number of characters preceding the null
 character. In general, the length of a C-string is one less than the bound of the character array
 that contains the C-string.
+
+{% include bookmark.html id="3" %}
 
 ### C-string variables
 
@@ -82,6 +88,8 @@ char s4[]{"he"};         // C-string; bound 3; length 2; auto null at position 3
 char s5[8]{"he"};        // C-string; bound 8; length 2; auto null at position 3
 ```
 
+{% include bookmark.html id="4" %}
+
 ### Being a C-string is a property of a `char` array
 
 Being a C-string is just a property of a character array based on whether the array meets the
@@ -95,6 +103,8 @@ char s6[]{'h','e','\0'}; // C-string; null character at position 3
 s6[2] = 'r';             // no longer a C-string: null character replaced
 s6[2] = '\0';            // C-string again: null character restored
 ```
+
+{% include bookmark.html id="5" %}
 
 ### Working with C-strings
 
@@ -120,6 +130,8 @@ int strcmp(const char *s1, const char *s2); // compare two C-strings
 
 **Reminder:** For safety and other reasons, prefer `std::string` when working with character data.
 If you must use a C-string, consider using it with the light-weight wrapper `std::string_view`.
+
+{% include bookmark.html id="6" %}
 
 ### C-string Vs NTBS
 
@@ -169,6 +181,8 @@ int main() {
     std::cout << std::strlen(s9) << '\n'; // 3: ignores chars after position 4
 }
 ```
+
+{% include bookmark.html id="7" %}
 
 ### Quiz
 
