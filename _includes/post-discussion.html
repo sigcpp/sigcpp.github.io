@@ -1,21 +1,19 @@
-<h3>Discussion</h3>
+<h3 id="discussion">Discussion</h3>
 <p>
     Ask questions, give feedback, and discuss this post on
     <a href="{{ page.tweet_url | default: 'https://twitter.com/sigcpp' }}">Twitter</a>.
-    {% if page.tweet_url %}
-        The Twitter link is specific to this post. Please post replies only to the
-        post-specific tweet so that the discussion stays in one place.
-    {% endif %}
+    {%- if page.tweet_url -%}
+        The Twitter link is specific to this post. Please post replies on this post only
+        at the post-specific tweet.
+    {%- endif -%}
 </p>
 
-{% if page.reader_activity %}
+{%- if page.reader_activity -%}
 <p>
-    Contact us on <a href="{{ page.tweet_url | default: 'https://twitter.com/sigcpp' }}">Twitter</a>
-    if you need clarification on the {{ page.reader_activity }}. Submit solutions by
-    DM on Twitter (only by DM, please) and provide
-    <a href="{{ '/resources#online-compilers' | relative_url }}">Compiler Explorer</a>
+    Submit solutions by DM on Twitter (only by DM, please) so as to avoid spoilers.
+    Please provide <a href="{{ '/resources#online-compilers' | relative_url }}">Compiler Explorer</a>
     links to code. We prefer textual answers in the form of GitHub gists, files in a
     repo, or other form where we can just follow a link and open the content in a
     browser.
 </p>
-{% endif %}
+{%- endif -%}
