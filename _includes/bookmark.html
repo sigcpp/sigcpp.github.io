@@ -1,0 +1,9 @@
+{% comment %}
+    designed for inclusion just before the heading text in a markdown file
+    to associate a custom id with heading. Example uses follow:
+
+    {% include bookmark.html id="7" %}
+
+    {% include bookmark.html id="Listing A" %}
+{% endcomment %}
+<div id="{{- include.id | slugify -}}"/>
