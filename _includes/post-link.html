@@ -1,0 +1,32 @@
+{% comment %}
+    write a post's url as a relative url using information in the id passed
+    the id could be just an id to a post or an id with a bookmark
+    use the id received to locate a post in site.posts. Example uses follow.
+
+    {% include post-link.html id="19" %}
+    19 is the id assigned to the post (in the post's header)
+
+    {% include post-link.html id="23#Listing A" %}
+    23 is the id assigned to the post; "Listing A" is a pre-slug bookmark
+
+    {% include post-link.html id="17#listing-b" %}
+    17 is the id assigned to the post; "listing-b" is a slugified bookmark
+    is a pre-slug bookmark
+{% endcomment %}
+
+{%- assign link_parts = include.id | split: "#" -%}
+{%- assign bookmark = link_parts[1] -%}
+
+{% comment %}
+   TO DO
+   the post's id and the bookmark are extracted OK from the parameter
+   but the post is not found in the collection
+   try calling with actual post URL as id (default post id is same as slug)
+   try using a tag name other than id in post's front matter?
+{% endcomment %}
+
+{%- assign post = site.posts | where: 'id', link_parts[0]  | first -%}
+{%- if post -%}
+   {{- post.url | relative_url -}}
+   {%- if bookmark -%}#{{- bookmark | slugify -}}{%- endif -%}
+{%- endif -%}
