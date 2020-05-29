@@ -16,9 +16,11 @@ focuses on efficiency of `std::string_view` over `std::string`. Part 3 provides 
 on using `std::string_view`.
 <!--more-->
 
+{% include bookmark.html id="1" %}
+
 ### String_view creation means
 
-As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#creating-string_view-objects' | relative_url }} )
+As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#1' | relative_url }} )
 of this series, [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
 is simply a read-only wrapper around a character array. This statement is true regardless
 of the creation means used: from nothing, from a [C-string]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ),
@@ -33,6 +35,8 @@ created from the empty C-string `""`.
 string_view created from an empty C-string [[string.view.cons](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)].
 
 ---
+
+{% include bookmark.html id="Listing A" %}
 
 ##### Listing A: creating string_view objects using four different means
 
@@ -59,6 +63,8 @@ rewritten as: `std::string_view sv4{s.c_str()};`
 creating a string_view from a string object actually invokes an operator function in
 `std::string`.
 
+{% include bookmark.html id="2" %}
+
 ### Simplicity and safety over character arrays
 
 It is much cleaner and safer to use the string_view wrapper instead of directly using a
@@ -82,9 +88,11 @@ Lastly, the string_view approach is safer because the programmer does not have t
 about buffer overflow and other issues associated with low-level functions such as
 `std::strcmp` and `std::strchr`.
 
+{% include bookmark.html id="3" %}
+
 ### Inside a string_view
 
-As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ),
+As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} ),
 just two internal data members facilitate the entire string_view functionality:
 
 - `data_`: a pointer to the first character of the array wrapped
@@ -102,6 +110,8 @@ access to the internal data members `data_` and `size_` respectively.
 **Note:** It is important to understand how a string_view is able to wrap any character
 array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jh3qPR)
 prepared to illustrate the effect of different creation means on the internals of a string_view object.
+
+{% include bookmark.html id="4" %}
 
 ### Safety issues with string_view
 
@@ -126,6 +136,8 @@ string_view. The comments in the code are self-explanatory.
 `also_acceptable` in Listing B.
 
 ---
+
+{% include bookmark.html id="Listing B" %}
 
 ##### Listing B: examples of acceptable and unacceptable uses of string_view
 
@@ -167,7 +179,7 @@ std::string_view also_acceptable() {
 Another issue to be aware of when using string_view is that the function member `data` is
 not guaranteed to return a C-string. Specifically, that function simply returns a pointer
 to the first character in the array that was passed to it. (It could return a pointer to
-a later character in the array if the function [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} )
+a later character in the array if the function [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} )
 was called earlier.)
 
 Listing C illustrates safe and unsafe uses of the `data` function member. Part 3 discusses
@@ -177,6 +189,8 @@ the last line of Listing C) instead of inserting the value returned from the `da
 function.
 
 ---
+
+{% include bookmark.html id="Listing C" %}
 
 ##### Listing C: safe and unsafe uses of `data` function member
 
@@ -193,6 +207,8 @@ std::cout << sv6;           // OK: insertion operator is safely overloaded
 ```
 
 ---
+
+{% include bookmark.html id="5" %}
 
 ### Part-2 summary
 
@@ -221,6 +237,8 @@ version represents text as a C-string; the second represents text as a string_vi
 string_view. (I will add the link here when Part 3 is published.)
 
 ---
+
+{% include bookmark.html id="Listing D" %}
 
 ##### Listing D: counting vowels using character array and string view ([run this code](https://godbolt.org/z/BVLL2P))
 
@@ -252,17 +270,19 @@ std::size_t vowel_count(const std::string_view& sv) {
 
 ---
 
+{% include bookmark.html id="6" %}
+
 ### Exercises
 
 1. Answer the questions embedded in the bulleted list in the summary section.
 
 2. Which of the two versions of function `vowel_count` in Listing D is faster? Which
    version is likely to use more run-time memory? Why?
-   - Use the code in [Listing A of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-a-measure-time-to-create-string-and-string_view-objects-run-this-code' | relative_url }} )
-   as a model to measure wall times.
+   - Use the code in [Listing A of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-a' | relative_url }} )
+     as a model to measure wall times.
 
 3. Rewrite the string_view version of `vowel_count` using member function
-   [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#modification-efficiency' | relative_url }} ).
+   [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} ).
    There are three different approaches to this rewrite. Try all three approaches and
    outline the pros and cons of each approach. State which approach you prefer and
    include a rationale.
@@ -271,7 +291,7 @@ std::size_t vowel_count(const std::string_view& sv) {
    [`find_first_of`](https://en.cppreference.com/w/cpp/string/basic_string_view/find_first_of).
    Which version is "better": the one in Listing D, or the rewritten one? Why?
 
-5. Write a C-string version of the code in [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b-extract-space-delimited-words-run-this-code' | relative_url }} ).
+5. Write a C-string version of the code in [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b' | relative_url }} ).
 
 6. Write a program to extract words from text, where words may be separated by space,
    comma, semi-colon, or period. Write both a C-string version and a string_view version.
