@@ -18,6 +18,8 @@ of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-proce
 focuses on safety. Part 3 provides guidelines on using `std::string_view`.
 <!--more-->
 
+{% include bookmark.html id="1" %}
+
 ### Creating string_view objects
 
 [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view) is just a
@@ -47,6 +49,8 @@ std::string_view sv2 = s; // initialize by assigning a string
 
 **Note:** [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#string_view-creation-means' | relative_url }} )
 of this series examines string_view creation means in more detail.
+
+{% include bookmark.html id="2" %}
 
 ### Creation efficiency
 
@@ -84,6 +88,7 @@ but the results from this program consistently show that the string approach is 
 of magnitude slower than the string_view approach (for example, 5 msecs versus 0.7 msecs).
 
 ---
+{% include bookmark.html id="Listing A" %}
 
 ##### Listing A: measure time to create string and string_view objects ([run this code](https://godbolt.org/z/SFRVNo))
 
@@ -134,6 +139,8 @@ const std::string cs{"pack my box with five dozen liquor jugs"};
 const std::string_view csv{"pack my box with five dozen liquor jugs"};
 ```
 
+{% include bookmark.html id="3" %}
+
 ### Processing efficiency
 
 Generally speaking, `std::string_view` supports only the sub-set of the functionality of
@@ -168,6 +175,8 @@ on this topic.)
 
 ---
 
+{% include bookmark.html id="Listing B" %}
+
 ##### Listing B: extract space-delimited words ([run this code](https://godbolt.org/z/G-EbgE))
 
 ```cpp
@@ -189,6 +198,8 @@ int main() {
 ```
 
 ---
+
+{% include bookmark.html id="4" %}
 
 ### Modification efficiency
 
@@ -224,6 +235,8 @@ to its improved readability and maintainability.
 
 ---
 
+{% include bookmark.html id="Listing C" %}
+
 ##### Listing C: extract space-delimited words through modification ([run this code](https://godbolt.org/z/68raty))
 
 ```cpp
@@ -252,6 +265,8 @@ except the call to `remove_prefix` needs to be replaced with a call to function 
 A [comparison](https://godbolt.org/z/53RF7r) of word-extraction through modification in
 the string and string_view approaches shows that the string approach is slightly slower
 (20%-160%).
+
+{% include bookmark.html id="5" %}
 
 ### Part-1 summary
 
