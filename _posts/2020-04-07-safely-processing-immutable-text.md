@@ -281,19 +281,36 @@ std::size_t vowel_count(const std::string_view& sv) {
    - Use the code in [Listing A of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-a' | relative_url }} )
      as a model to measure wall times.
 
-3. Rewrite the string_view version of `vowel_count` using member function
+3. Which of the two versions `vowel_count` is better to count vowels in a character
+   array that is not null-terminated? Why?
+
+4. Using only the string_view version of `vowel_count`, write a `main` function to count
+   vowels in a C-string and a character array that is not null-terminated. That is, make
+   two calls to the string_view version of `vowel_count`, each time with a different
+   argument. (For this part of the exercise, it might help to remove the C-string
+   version of `vowel_count` from the program.)
+
+5. Assuming the string_view abstraction (or something comparable) does not exist or
+   cannot be used, write a function or functions to count vowels in a character array
+   that may or may not be null-terminated.
+
+   It is OK to have two versions of the function if that approach seems better. (Listing D already shows the C-string version.) However, strive to reuse code as much as
+   possible, but also strive to make code maintainable and "efficient". Include comments
+   that clearly explain the rationale for your choices.
+
+6. Rewrite the string_view version of `vowel_count` using member function
    [`remove_prefix`]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} ).
    There are three different approaches to this rewrite. Try all three approaches and
    outline the pros and cons of each approach. State which approach you prefer and
    include a rationale.
 
-4. Rewrite the string_view version of `vowel_count` using member function
+7. Rewrite the string_view version of `vowel_count` using member function
    [`find_first_of`](https://en.cppreference.com/w/cpp/string/basic_string_view/find_first_of).
    Which version is "better": the one in Listing D, or the rewritten one? Why?
 
-5. Write a C-string version of the code in [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b' | relative_url }} ).
+8. Write a C-string version of the code in [Listing B of Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#listing-b' | relative_url }} ).
 
-6. Write a program to extract words from text, where words may be separated by space,
+9. Write a program to extract words from text, where words may be separated by space,
    comma, semi-colon, or period. Write both a C-string version and a string_view version.
 
    - Do **not** use regular-expression, stream extraction, or other such approach that
