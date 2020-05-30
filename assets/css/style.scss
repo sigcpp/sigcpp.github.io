@@ -60,7 +60,11 @@ ul.posts li h2.page-title, section h2.page-title {
   margin-bottom: 10px;
 }
 
-/* heading for captions such as listings */
+/* 
+  heading for captions such as listings
+  hr is added in markdown; div added by bookmark.html; h5 by markdown-to-html xform
+  hr, div, and h5 are strictly in that sequence
+*/
 hr + div + h5 {
   margin-top: 10px;
 }
@@ -68,8 +72,6 @@ hr + div + h5 {
 p {
   margin-bottom: 18px;
 }
-
-
 
 a + span.external {
   vertical-align: super;
