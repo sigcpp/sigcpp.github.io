@@ -5,5 +5,9 @@
     {% include bookmark.html id="7" %}
 
     {% include bookmark.html id="Listing A" %}
+
+    explicitly close empty div so that what follows does not become a
+    child of div: using the short-hand for empty element causes the
+    div to become a container (not sure why)
 {% endcomment %}
-<div id="{{- include.id | slugify -}}"/>
+<div id="{{- include.id | slugify -}}"></div>
