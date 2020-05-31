@@ -62,10 +62,10 @@ ul.posts li h2.page-title, section h2.page-title {
 
 /* 
   heading for captions such as listings
-  hr is added in markdown; div added by bookmark.html; h5 by markdown-to-html xform
-  hr, div, and h5 are strictly in that sequence
+  hr is added in markdown; div.bookmark by bookmark.html; h5 by markdown-to-html xform
+  hr, div.bookmark, and h5 are strictly in that sequence
 */
-hr + div + h5 {
+hr + div.bookmark + h5 {
   margin-top: 10px;
 }
 
