@@ -18,9 +18,9 @@ over `std::string`, but make that choice on a case-by-case basis. Even when usin
 C-string, consider using it with the light-weight wrapper `std::string_view`.
 <!--more-->
 
-{% include bookmark.html id="1.1" %}
+{% include bookmark.html id="1" %}
 
-### 1.1&nbsp;&nbsp; Terms
+### 1&nbsp;&nbsp; Terms
 
 In C++, the informal term *C-string* is used to mean the "string" data structure defined
 in the C programming language [[7.1.1](https://web.archive.org/web/20181230041359if_/http://www.open-std.org/jtc1/sc22/wg14/www/abq/c17_updated_proposed_fdis.pdf)]:
@@ -52,11 +52,11 @@ defines the length of a string as the number of bytes preceding the null charact
   for how the sequence is represented or terminated. (`std::string` is a concrete
   implementation of this abstraction.)
 - Use the term NTBS to actually mean a null-terminated sequence of characters as defined
-  in C++. (A subtle difference between C-strings and NTBSs is examined [later in this post](#1.6).)
+  in C++. (A subtle difference between C-strings and NTBSs is examined [later in this post](#6).)
 
-{% include bookmark.html id="1.2" %}
+{% include bookmark.html id="2" %}
 
-### 1.2&nbsp;&nbsp; C-string literals
+### 2&nbsp;&nbsp; C-string literals
 
 A literal such as `"hello"` is a C-string literal ("static NTBS" in C++, to be precise).
 The compiler automatically places the null character after the last character inside the
@@ -72,9 +72,9 @@ The length of the literal `"hello"` is five, which is the number of characters p
 null character. In general, the length of a C-string is one less than the bound of the
 character array that contains the C-string.
 
-{% include bookmark.html id="1.3" %}
+{% include bookmark.html id="3" %}
 
-### 1.3&nbsp;&nbsp; C-string variables
+### 3&nbsp;&nbsp; C-string variables
 
 The following code fragment declares six character-array variables, only four of which create
 C-strings. The end-of-line comments provide additional information for each array.
@@ -92,9 +92,9 @@ char s4[]{"he"};         // C-string; bound 3; length 2; auto null at position 3
 char s5[8]{"he"};        // C-string; bound 8; length 2; auto null at position 3
 ```
 
-{% include bookmark.html id="1.4" %}
+{% include bookmark.html id="4" %}
 
-### 1.4&nbsp;&nbsp; Being a C-string is a property of a `char` array
+### 4&nbsp;&nbsp; Being a C-string is a property of a `char` array
 
 Being a C-string is just a property of a character array based on whether the array meets
 the requirement of containing the null character, and this property can change over time
@@ -108,9 +108,9 @@ s6[2] = 'r';             // no longer a C-string: null character replaced
 s6[2] = '\0';            // C-string again: null character restored
 ```
 
-{% include bookmark.html id="1.5" %}
+{% include bookmark.html id="5" %}
 
-### 1.5&nbsp;&nbsp; Working with C-strings
+### 5&nbsp;&nbsp; Working with C-strings
 
 The C++ library includes many functions that operate on C-strings. These functions are
 defined in the header `<cstring>` [[cstring.syn](https://timsong-cpp.github.io/cppwp/n4659/c.strings#cstring.syn)].
@@ -137,9 +137,9 @@ int strcmp(const char *s1, const char *s2); // compare two C-strings
 character data. If you must use a C-string, consider using it with the light-weight
 wrapper `std::string_view`.
 
-{% include bookmark.html id="1.6" %}
+{% include bookmark.html id="6" %}
 
-### 1.6&nbsp;&nbsp; C-string versus NTBS
+### 6&nbsp;&nbsp; C-string versus NTBS
 
 For all practical purposes, a C-string is the same as an NTBS, but a careful examination
 of their respective definitions reveals a subtle difference.
@@ -189,9 +189,9 @@ int main() {
 }
 ```
 
-{% include bookmark.html id="1.7" %}
+{% include bookmark.html id="7" %}
 
-### 1.7&nbsp;&nbsp; Quiz
+### 7&nbsp;&nbsp; Quiz
 
 Strictly following the definitions of C-string and NTBS:
 
