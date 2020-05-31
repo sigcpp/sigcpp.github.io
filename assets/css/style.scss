@@ -79,3 +79,7 @@ a + span.external {
   font-weight: bolder;
   color: blue;
 }
+
+@media print {
+  a + span.external { display: none; }
+}
