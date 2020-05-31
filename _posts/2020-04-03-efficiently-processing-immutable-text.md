@@ -20,7 +20,7 @@ focuses on safety. Part 3 provides guidelines on using `std::string_view`.
 
 {% include bookmark.html id="1" %}
 
-### Creating string_view objects
+### 1&nbsp;&nbsp; Creating string_view objects
 
 [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view) is just a
 read-only wrapper around a character array ("a constant contiguous sequence of `char`-like
@@ -52,7 +52,7 @@ of this series examines string_view creation means in more detail.
 
 {% include bookmark.html id="2" %}
 
-### Creation efficiency
+### 2&nbsp;&nbsp; Creation efficiency
 
 For starters, compare the effect of creating an object to work with the text `"hello"`
 using `std::string` and `std::string_view`. A [comparison](https://godbolt.org/z/2tEvxC)
@@ -141,7 +141,7 @@ const std::string_view csv{"pack my box with five dozen liquor jugs"};
 
 {% include bookmark.html id="3" %}
 
-### Processing efficiency
+### 3&nbsp;&nbsp; Processing efficiency
 
 Generally speaking, `std::string_view` supports only the sub-set of the functionality of
 `std::string` that pertains to the following operations: reading array elements,
@@ -201,7 +201,7 @@ int main() {
 
 {% include bookmark.html id="4" %}
 
-### Modification efficiency
+### 4&nbsp;&nbsp; Modification efficiency
 
 Contrary to what their names suggest, the modifier functions of string_view do *not*
 alter the character array wrapped. Instead, they alter two internal data members used to
@@ -268,7 +268,7 @@ the string and string_view approaches shows that the string approach is slightly
 
 {% include bookmark.html id="5" %}
 
-### Part-1 summary
+### 5&nbsp;&nbsp; Part-1 summary
 
 Overall, `std::string_view` provides more efficient ways to process immutable data than
 `std::string` does. This efficiency is seen in object creation, general processing, and

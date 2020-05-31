@@ -18,7 +18,7 @@ on using `std::string_view`.
 
 {% include bookmark.html id="1" %}
 
-### String_view creation means
+### 1&nbsp;&nbsp; String_view creation means
 
 As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#1' | relative_url }} )
 of this series, [`std::string_view`](https://en.cppreference.com/w/cpp/string/basic_string_view)
@@ -65,7 +65,7 @@ creating a string_view from a string object actually invokes an operator functio
 
 {% include bookmark.html id="2" %}
 
-### Simplicity and safety over character arrays
+### 2&nbsp;&nbsp; Simplicity and safety over character arrays
 
 It is much cleaner and safer to use the string_view wrapper instead of directly using a
 character array because string_view has functions and operators that abstract over
@@ -90,7 +90,7 @@ about buffer overflow and other issues associated with low-level functions such 
 
 {% include bookmark.html id="3" %}
 
-### Inside a string_view
+### 3&nbsp;&nbsp; Inside a string_view
 
 As stated in [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} ),
 just two internal data members facilitate the entire string_view functionality:
@@ -113,7 +113,7 @@ prepared to illustrate the effect of different creation means on the internals o
 
 {% include bookmark.html id="4" %}
 
-### Safety issues with string_view
+### 4&nbsp;&nbsp; Safety issues with string_view
 
 There are three major safety-related issues when using string_views:
 
@@ -210,7 +210,7 @@ std::cout << sv6;           // OK: insertion operator is safely overloaded
 
 {% include bookmark.html id="5" %}
 
-### Part-2 summary
+### 5&nbsp;&nbsp; Part-2 summary
 
 Overall, `std::string_view` provides a cleaner and safer means to process immutable data
 than character arrays do. However, there are some safety concerns in using string_view,
@@ -272,7 +272,7 @@ std::size_t vowel_count(const std::string_view& sv) {
 
 {% include bookmark.html id="6" %}
 
-### Exercises
+### 6&nbsp;&nbsp; Exercises
 
 1. Answer the questions embedded in the bulleted list in the summary section.
 
