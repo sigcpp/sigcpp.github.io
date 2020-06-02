@@ -108,7 +108,7 @@ and [`size`](https://en.cppreference.com/w/cpp/string/basic_string_view/size) pr
 access to the internal data members `data_` and `size_` respectively.
 
 **Note:** It is important to understand how a string_view is able to wrap any character
-array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jh3qPR)
+array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/3wgKRr)
 prepared to illustrate the effect of different creation means on the internals of a string_view object.
 
 {% include bookmark.html id="4" %}
