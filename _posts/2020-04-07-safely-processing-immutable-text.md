@@ -184,8 +184,8 @@ a later character in the array if the function [`remove_prefix`]( {{ '/2020/04/0
 was called earlier.)
 
 Listing C illustrates safe and unsafe uses of the `data` function member.
-[Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} )
-discusses the details, but briefly, it is better to avoid accessing the `data` function
+[Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text#5' | relative_url }} )
+discusses in detail, but briefly, it is better to avoid accessing the `data` function
 altogether. For example, insert a string_view directly to an output stream (as is done
 with `sv6` in the last line of Listing C) instead of inserting the value returned from the
 `data` function.
