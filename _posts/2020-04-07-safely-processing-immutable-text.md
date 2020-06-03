@@ -1,4 +1,5 @@
 ---
+pid: 3
 title: "Safely processing immutable text"
 date: 2020-04-07
 authors: smurthys
@@ -12,8 +13,8 @@ This is Part 2 of a 3-part series on `std::string_view`. This part focuses on th
 made when using `std::string_view`.
 
 [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
-focuses on efficiency of `std::string_view` over `std::string`. Part 3 provides guidelines
-on using `std::string_view`.
+focuses on efficiency of `std::string_view` over `std::string`. [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} )
+provides guidelines for using `std::string_view`.
 <!--more-->
 
 {% include bookmark.html id="1" %}
@@ -233,8 +234,8 @@ version represents text as a C-string; the second represents text as a string_vi
   character is missing. (This issue exists in two locations in the C-string version.
   What are those locations?)
 
-**Note:** Be sure to read Part 3 of this series where I provide some guidelines on using
-string_view. (I will add the link here when Part 3 is published.)
+**Note:** Be sure to read [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} )
+of this series for guidelines on using string_view.
 
 ---
 

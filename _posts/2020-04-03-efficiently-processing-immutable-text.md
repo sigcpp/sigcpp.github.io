@@ -1,4 +1,5 @@
 ---
+pid: 2
 title: "Efficiently processing immutable text"
 date: 2020-04-03
 authors: smurthys
@@ -15,7 +16,7 @@ maintainable.
 
 This is Part 1 of a 3-part series on `std::string_view`. This part focuses on efficiency
 of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
-focuses on safety. Part 3 provides guidelines on using `std::string_view`.
+focuses on safety. [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} ) provides guidelines for using `std::string_view`.
 <!--more-->
 
 {% include bookmark.html id="1" %}
@@ -275,4 +276,5 @@ Overall, `std::string_view` provides more efficient ways to process immutable da
 "modification".
 
 Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
-focuses on safety. Part 3 provides guidelines on using string_view.
+focuses on safety. [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} )
+provides guidelines on using string_view.
