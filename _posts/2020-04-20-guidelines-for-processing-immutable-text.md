@@ -183,7 +183,7 @@ may or may not be null-terminated.
 {:start="17"}
 
 17. **Do not let a string_view object outlive the data it wraps**. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#4' | relative_url }} )
-discusses the issue that motivates this guideline.
+discusses the safety issue that motivates this guideline.
 
 18. **Check string_view size before accessing data**. The subscript operator as well as
      functions `front`, `back`, `remove_prefix`, and `remove_suffix` do **not** check
