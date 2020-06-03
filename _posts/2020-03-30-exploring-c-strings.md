@@ -1,4 +1,5 @@
 ---
+pid: 1
 title: "Exploring C-strings"
 date: 2020-03-30
 authors: smurthys
