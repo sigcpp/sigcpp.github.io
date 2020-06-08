@@ -5,6 +5,7 @@ date: 2020-04-18
 authors: smurthys
 cpp_level: introductory
 cpp_version: "Any"
+tweet_url: https://twitter.com/sigcpp/status/1270056423792283654
 ---
 
 To insert a line break into an output stream, just insert the newline character (`'\n'`)

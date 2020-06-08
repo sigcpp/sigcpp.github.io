@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: intermediate
 cpp_version: "Any version"
 reader_activity: quiz
+tweet_url: https://twitter.com/sigcpp/status/1270054179030077447
 ---
 
 This post discusses the use of C-strings in C++. It defines the terms C-string and NTBS

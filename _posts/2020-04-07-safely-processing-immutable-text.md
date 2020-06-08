@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: intermediate
 cpp_version: "C++17"
 reader_activity: exercises
+tweet_url: https://twitter.com/sigcpp/status/1270055450730512395
 ---
 
 This is Part 2 of a 3-part series on `std::string_view`. This part focuses on the safety

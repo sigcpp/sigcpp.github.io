@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: intermediate
 cpp_version: "C++17, C++20"
 reader_activity: exercise
+tweet_url: https://twitter.com/sigcpp/status/1270055858706305024
 ---
 
 This post presents detailed guidelines for using `std::string_view`. It includes a total
