@@ -213,7 +213,7 @@ discusses the safety issue that motivates this guideline.
     string_view data are not synchronized. If string_view's data should match the copy
     after it is worked on, assign the copy back to the string_view.
 
-    I recommend studying [this program](https://godbolt.org/z/vGYxyo) prepared to
+    I recommend studying [this program](https://godbolt.org/z/pibWqB) prepared to
     illustrate some means and side effects of removing `const`ness from string_view data.
     The program also includes an example of copying string_view data, changing the copy,
     and then assigning the changed copy back to string_view.
