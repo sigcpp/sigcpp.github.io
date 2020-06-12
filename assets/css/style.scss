@@ -85,14 +85,22 @@ a + span.external {
 }
 
 /*
- Force items of a nested ordered list to be numbered with lower-case letters 
- assumes the start attribute of the inner list is set to "a"
- Placiing {:start="a"} just before the first inner list item makes Jekyll
- add start=a attribute to the internal ol element
+ Force items of a nested ordered list to be numbered with lower-case alpha or roman
+ based on whether the start attribute of the inner list is set to "a" or "i"
+ Placiing {:start="a"} just before the first inner list item makes Jekyll add start=a
+ attribute to the internal ol element
+ Ideally, adding attribute type="a" or type="i" is prefered for the inner list but
+ Jekyll ignores the tag {:type="a"} or {:type="i"}. It seems to only care for start attr.
  */
+
 ol > li > ol[start=a] {
   list-style-type: lower-alpha;
 }
+
+ol > li > ol[start=i] {
+  list-style-type: lower-roman;
+}
+
 
 /*
  The following styles are to create 2-column or 3-column content
