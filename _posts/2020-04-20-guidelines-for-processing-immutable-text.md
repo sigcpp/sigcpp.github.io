@@ -117,9 +117,9 @@ may or may not be null-terminated.
    redundant code, or somewhat convoluted (less maintainable) code.
 
 10. **Avoid using a character array directly while it is also wrapped in a string_view**,
-    or do so with a lot care. For example, avoid mixing access as shown in the following
-    code segment. If such mixed access is required, it may be better to model text as a
-    mutable string object:
+    or do so with a lot of care. For example, avoid mixing access as shown in the
+    following code segment. If such mixed access is required, it may be better to model
+    text as a mutable string object:
 
     ```cpp
     char z[]{"hello"};
