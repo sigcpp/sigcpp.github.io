@@ -63,7 +63,7 @@ ul.posts li h2.page-title, section h2.page-title {
 /* 
   heading for captions such as listings
   hr is added in markdown; div.bookmark by bookmark.html; h5 by markdown-to-html xform
-  hr, div.bookmark, and h5 are strictly in that sequence
+  hr, div.bookmark, and h5 are siblings strictly in that sequence
 */
 hr + div.bookmark + h5 {
   margin-top: 10px;
@@ -85,10 +85,20 @@ a + span.external {
 }
 
 /*
+ Force items of a nested ordered list to be numbered with lower-case letters 
+ assumes the start attribute of the inner list is set to "a"
+ Placiing {:start="a"} just before the first inner list item makes Jekyll
+ add start=a attribute to the internal ol element
+ */
+ol > li > ol[start=a] {
+  list-style-type: lower-alpha;
+}
+
+/*
  The following styles are to create 2-column or 3-column content
  without using tables (HTML or markdown)
 
- Stack columns when window is "narrow" (< 600px)
+ Stack columns when window is "narrow" (< 600px): stacking doesn't work yet
  */
 div.row {
   display: flex;  
