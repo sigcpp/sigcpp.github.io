@@ -1,0 +1,19 @@
+{% comment %}
+    adds a column to a multi-column structure: starts the structure if creating first row
+    param n number of columns: 2 is the default; param c is column number: 1 is default
+    param h is text of column heading 
+    param md becomes value of markdown attribute of column: default "1"; "block" also used
+    - see https://michelf.ca/projects/php-markdown/extra/
+
+    {% include multi-column-start.html n=2 c=1 h="Side A" md="1" %}
+
+    {% include multi-column-start.html n=3 c=3 md="block" %}
+
+    include multi-column-end.html after last row's content to complete the structure
+
+    See example of stacking columns (stacking does not work presently):
+    - https://www.w3schools.com/howto/howto_css_two_columns.asp
+    - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_two_columns_responsive
+{% endcomment %}
+
+See RVO post
