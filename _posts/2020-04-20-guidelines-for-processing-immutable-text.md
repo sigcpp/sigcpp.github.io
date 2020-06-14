@@ -132,7 +132,7 @@ may or may not be null-terminated.
 11. **Replace `const` character array parameters with string_views**. However, it is OK
     to receive an array parameter and create a string_view at an appropriate juncture
     within the function. The idea is to get the benefit of using string_view but
-    prevent premature creation of string_view object in the calling function, if the
+    prevent premature creation of string_view objects in the calling function, if the
     called function is less likely or unlikely to use the parameter.
 
     If a function receives a non-`const` array parameter, see if the function really
