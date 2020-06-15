@@ -73,6 +73,10 @@ p {
   margin-bottom: 18px;
 }
 
+section p {
+  text-align: justify;
+}
+
 a + span.external {
   vertical-align: super;
   font-size: 90%;
