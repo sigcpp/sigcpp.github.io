@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: intermediate
 cpp_version: "C++03"
 reader_activity: exercises
+tweet_url: https://twitter.com/sigcpp/status/1272634370105450501
 ---
 
 Return-value optimization is a compiler technique to avoid copying an object that a
