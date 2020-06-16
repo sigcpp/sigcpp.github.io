@@ -14,7 +14,8 @@ function returns as its value, including avoiding creation of a temporary object
 optimization permits a function to efficiently return large objects while also
 simplifying the function's interface and eliminating scope for issues such as resource
 leaks. However, there are situations where a compiler may be unable to perform this
-optimization, and there are situations where it may be acceptable or even be better to forego this optimization.
+optimization,  where a function does not capitalize on the optimization, and where it may
+be acceptable or even be better to forego this optimization.
 <!--more-->
 
 {% include bookmark.html id="1" %}
@@ -27,7 +28,7 @@ elision" (meaning "avoiding copying"). C++17 requires copy elision when a functi
 when a function returns a named object. Also, whether copy elision is
 helpful depends on how the function's return value is consumed. Thus, it is important to
 understand the code organization of both the called and calling functions, and verify if
-the optimization is performed or helpful in a given situation.
+the optimization is performed or is helpful in a given situation.
 
 The terms RVO and NRVO are frequently used in relation to copy elision, but the C++
 standard does **not** define those terms. Also, the term RVO is sometimes used to mean
