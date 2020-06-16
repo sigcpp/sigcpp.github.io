@@ -30,15 +30,15 @@ understand the code organization of both the called and calling functions, and v
 the optimization is performed or helpful in a given situation.
 
 The terms RVO and NRVO are frequently used in relation to copy elision, but the C++
-standard does **not** define these terms. Also, the term RVO is sometimes used to mean
+standard does **not** define those terms. Also, the term RVO is sometimes used to mean
 optimization with respect to unnamed objects, but sometimes also to mean optimization in
 relation to both named and unnamed objects. Thus, for clarity, this post uses the
-following terms:
+following terms and acronyms:
 
 - RVO: copy elision for either unnamed objects or named objects
-- URVO: copy elision for unnamed objects only [the term URVO is my own creation for the
+- Unnamed RVO and URVO: copy elision for unnamed objects only [the term URVO is my own creation for the
   purpose of this post]
-- NRVO: copy elision for named objects only
+- NRVO: copy elision for named objects only [NRVO is a well-established term]
 
 Listing A shows a simple struct rigged to show which constructor is called as well as to
 show when the assignment operator and the destructor are called. The static variable
@@ -86,7 +86,8 @@ struct S {
 
 ### 2.&nbsp;&nbsp; Unnamed RVO
 
-Unnamed RVO (NRVO) relates to optimizing the return of "unnamed objects" or temporary objects, which are objects created on a `return` statement.
+Unnamed RVO (URVO) relates to optimizing the return of "unnamed objects" or temporary
+ objects, which are objects created on a `return` statement.
 
 URVO is a relatively old technique and has been permitted since C++98 ([Section 12.2 of that standard]((http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf))),
 but it is required only since C++17. C++ compilers have likely supported URVO at least
@@ -255,7 +256,7 @@ int main() {
 
 {% include bookmark.html id="5" %}
 
-### 5.&nbsp;&nbsp; Impact of calling context
+### 5.&nbsp;&nbsp; Role of the calling function
 
 Listing E shows a subtle logic error that causes loss of NRVO benefit: In `main`, an
 instance of `S` is created using the default constructor in the first line and it is then
@@ -263,11 +264,18 @@ assigned the return value from function `get_E`. This situation requires the com
 create two objects and invoke the assignment operator to set variable `s` to the
 function's return value.
 
-To repeat, the situation in Listing E is a logic error; not a case of the compiler not
-performing NRVO.
-
 **Note:** The loss of optimization benefit in Listing E applies even if function `get_E`
 returns an unnamed object.
+
+To repeat, the situation in Listing E is a logic error; not a case of the compiler not
+performing RVO. If the compiler does any sort of RVO (and C++17 guarantees URVO), it does
+so without regard for the calling context. To be precise, the compiler generates code such
+that object copying is avoided if the return value is used as the initializer for a
+receiving variable (and in a few other cases; see [Exercise 6](#9)).
+
+Because the compiler performs RVO independent of the calling context, RVO benefits are
+available whether the function is reused in source form or binary form, and it is always
+up to the calling function to lose or gain the benefit.
 
 ---
 {% include bookmark.html id="Listing E" %}
@@ -516,4 +524,17 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
 
     2. How and why would your position change for this statment: `S s = f();`
 
-    3. How and why would your position change for these statments: `S s; s = f();`
+    3. How and why would your position change for this statment sequnce: `S s; s = f();`
+
+6. Revise the code in [Listing E](#listing-e) as follows in GCC 10.1. Then, based on the
+   revised program's output, answer the following question: Does the revised `main` get
+   the benefit of RVO? If yes, make a general statement on the circumstances in which a
+   calling function gets the benefit of RVO. If you say `main` does not get the benefit
+   of RVO, explain why and point to the part of the program's output that supports your
+   position. In any case submit a Compiler Explorer link to the revised program.
+
+    {:start="i"}
+    1. Add a function named `use_E` which receives a `const` reference to an instance of
+       `S`. In the function, merely print to screen the value of `S`'s the data member `i`.
+
+    2. Change the entire body of `main` to contain just this one statement: `use_E(get_E());`
