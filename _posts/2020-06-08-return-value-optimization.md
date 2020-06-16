@@ -526,10 +526,10 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
 
     3. How and why would your position change for this statment sequnce: `S s; s = f();`
 
-6. Revise the code in [Listing E](#listing-e) as follows in GCC 10.1. Then, based on the
-   revised program's output, answer the following question: Does the revised `main` get
-   the benefit of RVO? If yes, make a general statement on the circumstances in which a
-   calling function gets the benefit of RVO. If you say `main` does not get the benefit
+6. Revise the code in [Listing E](#listing-e) as follows in C++17 using GCC 10.1. Then,
+   based on the revised program's output, answer this question: Does the revised `main`
+   get the benefit of RVO? If yes, make a general statement on the circumstances in which
+   a calling function gets the benefit of RVO. If you say `main` does not get the benefit
    of RVO, explain why and point to the part of the program's output that supports your
    position. In any case submit a Compiler Explorer link to the revised program.
 
