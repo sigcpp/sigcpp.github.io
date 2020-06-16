@@ -4,7 +4,7 @@ title: "Safely processing immutable text"
 date: 2020-04-07
 authors: smurthys
 cpp_level: intermediate
-cpp_version: "C++17"
+cpp_versions: "C++17"
 reader_activity: exercises
 tweet_url: https://twitter.com/sigcpp/status/1270055450730512395
 ---

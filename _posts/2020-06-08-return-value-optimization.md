@@ -4,7 +4,7 @@ title: "Return value optimization (RVO)"
 date: 2020-06-08
 authors: smurthys
 cpp_level: intermediate
-cpp_version: "C++03"
+cpp_versions: ["C++98", "C++03", "C++17"]
 reader_activity: exercises
 tweet_url: https://twitter.com/sigcpp/status/1272634370105450501
 ---

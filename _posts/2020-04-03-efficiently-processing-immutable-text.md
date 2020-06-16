@@ -4,7 +4,7 @@ title: "Efficiently processing immutable text"
 date: 2020-04-03
 authors: smurthys
 cpp_level: intermediate
-cpp_version: "C++17"
+cpp_versions: "C++17"
 tweet_url: https://twitter.com/sigcpp/status/1270054919794503680
 ---
 

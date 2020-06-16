@@ -4,7 +4,7 @@ title: "Guidelines for processing immutable text"
 date: 2020-04-20
 authors: smurthys
 cpp_level: intermediate
-cpp_version: "C++17, C++20"
+cpp_versions: ["C++17, C++20"]
 reader_activity: exercise
 tweet_url: https://twitter.com/sigcpp/status/1270055858706305024
 ---
