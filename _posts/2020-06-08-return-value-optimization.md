@@ -536,6 +536,6 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
 
     {:start="i"}
     1. Add a function named `use_E` which receives a `const` reference to an instance of
-       `S`. In the function, merely print to screen the value of `S`'s the data member `i`.
+       `S`. In the function, merely print to screen the value of `S`'s data member `i`.
 
     2. Change the entire body of `main` to contain just this one statement: `use_E(get_E());`
