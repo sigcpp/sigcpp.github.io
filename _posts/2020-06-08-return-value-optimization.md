@@ -517,7 +517,7 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
 
 5. Consider the declaration `S f();` for a third-party library function `f` distributed
    in binary form. Assume we do **not** have access to the source code of `f`, but we
-   know the library is compiled with GCC 10.1.
+   know the library is compiled with GCC 10.1. State all assumptions you make.
 
     {:start="a"}
     1. What can we say about the RVO that might be performed in function `f`, without
