@@ -532,7 +532,7 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
    get the benefit of RVO? If yes, make a general statement on the circumstances in which
    a calling function gets the benefit of RVO. If you say `main` does not get the benefit
    of RVO, explain why and point to the part of the program's output that supports your
-   position. In any case submit a Compiler Explorer link to the revised program.
+   position. In either case, submit a Compiler Explorer link to the revised program.
 
     {:start="i"}
     1. Add a function named `use_E` which receives a `const` reference to an instance of
