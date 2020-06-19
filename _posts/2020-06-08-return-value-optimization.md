@@ -539,3 +539,11 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
        `S`. In the function, merely print to screen the value of `S`'s data member `i`.
 
     2. Change the entire body of `main` to contain just this one statement: `use_E(get_E());`
+
+7. What revision to struct `S` and corresponding revision to function `get_D2` of
+   [Listing D](#listing-d) permits `get_D2` to return different objects in each path
+   while also enabling RVO? What does this RVO-enabling change in `S` and `get_D2`
+   inform us about writing classes/structs and returning object values?
+
+   [I apologize if this question seems underspecified, but being more specific gives
+   away too much of the solution. Please [DM](#discussion) if you like more information.]
