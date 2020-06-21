@@ -49,7 +49,7 @@ is helpful.
 
 **Note:** All examples and optimizations described in this post are verified in C++17
 using both GCC 10.1 and Visual Studio 2019 Version 16.5.5. The code in Listings A, B,
-and C are also verified in C++98 using GCC 4.1.2.
+and C is also verified in C++98 using GCC 4.1.2.
 
 ---
 {% include bookmark.html id="Listing A" %}
@@ -90,7 +90,7 @@ struct S {
 Unnamed RVO (URVO) relates to optimizing the return of "unnamed objects" or temporary
  objects, which are objects created on a `return` statement.
 
-URVO is a relatively old technique and has been permitted since C++98 ([Section 12.2 of that standard]((http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf))),
+URVO is a relatively old technique and has been permitted since C++98 ([Section 12.2 of that standard](http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf)),
 but it is required only since C++17. C++ compilers have likely supported URVO at least
 as far back as 2001. MSVC has supported it since [Visual C++ 2005](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)),
 but in the GCC world, due to my limited access to tools, I am able to trace it back only
@@ -111,9 +111,7 @@ be disabled in C++14. See [Exercise 1](#9).)
 
 ##### Listing B: behavior without URVO and with URVO ([run this code](https://godbolt.org/z/rzJeyX))
 
-<div class="row">
-<div class="column-2" markdown="1">
-<div class="column-head">Without URVO</div>
+{% include multi-column-start.html c=1 h="Without URVO" %}
 
 ```cpp
 S get_B() {
@@ -125,9 +123,7 @@ int main() {
 } // 4. dtor 2
 ```
 
-</div>
-<div class="column-2" markdown="1">
-<div class="column-head">With URVO</div>
+{% include multi-column-start.html c=2 h="With URVO" %}
 
 ```cpp
 S get_B() {
@@ -139,8 +135,8 @@ int main() {
 } // 2. dtor 1
 ```
 
-</div>
-</div>
+{% include multi-column-end.html %}
+
 ---
 
 {% include bookmark.html id="3" %}
@@ -162,9 +158,7 @@ compiler option. In contrast, MSVC disables NRVO by default, but it can be enabl
 
 ##### Listing C: behavior without NRVO and with NRVO ([run this code](https://godbolt.org/z/TbroUH))
 
-<div class="row">
-<div class="column-2" markdown="1">
-<div class="column-head">Without NRVO</div>
+{% include multi-column-start.html c=1 h="Without NRVO" %}
 
 ```cpp
 S get_C() {
@@ -178,9 +172,8 @@ int main() {
 } // 4. dtor 2
 ```
 
-</div>
-<div class="column-2" markdown="1">
-<div class="column-head">With NRVO</div>
+{% include multi-column-start.html c=2 h="With NRVO" %}
+
 
 ```cpp
 S get_C() {
@@ -194,8 +187,8 @@ int main() {
 } // 2. dtor 1
 ```
 
-</div>
-</div>
+{% include multi-column-end.html %}
+
 ---
 
 {% include bookmark.html id="4" %}
@@ -380,9 +373,7 @@ application.
 
 ##### Listing G: effect of code organization ([run this code](https://godbolt.org/z/V2ZASh))
 
-<div class="row">
-<div class="column-2" markdown="1">
-<div class="column-head">Lose RVO, sequential exception handling</div>
+{% include multi-column-start.html c=1 h="Lose RVO, sequential exception handling" %}
 
 ```cpp
 int main() {
@@ -407,9 +398,7 @@ int main() {
 }
 ```
 
-</div>
-<div class="column-2" markdown="1">
-<div class="column-head">Gain RVO, nested exception handling</div>
+{% include multi-column-start.html c=2 h="Gain RVO, nested exception handling" %}
 
 ```cpp
 int main() {
@@ -434,8 +423,7 @@ int main() {
 }
 ```
 
-</div>
-</div>
+{% include multi-column-end.html %}
 
 ---
 
