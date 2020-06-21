@@ -92,7 +92,7 @@ Unnamed RVO (URVO) relates to optimizing the return of "unnamed objects" or temp
 
 URVO is a relatively old technique and has been permitted since C++98 ([Section 12.2 of that standard](http://www.lirmm.fr/~ducour/Doc-objets/ISO+IEC+14882-1998.pdf)),
 but it is required only since C++17. C++ compilers have likely supported URVO at least
-as far back as 2001. MSVC has supported it since [Visual C++ 2005](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)),
+as far back as 2001. MSVC has supported it at least since [Visual C++ 2005](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)),
 but in the GCC world, due to my limited access to tools, I am able to trace it back only
 to [GCC 4.1.2](https://godbolt.org/z/4HdRj7) (which was released in [2007](https://gcc.gnu.org/releases.html)).
 
@@ -109,7 +109,7 @@ be disabled in C++14. See [Exercise 1](#9).)
 ---
 {% include bookmark.html id="Listing B" %}
 
-##### Listing B: behavior without URVO and with URVO ([run this code](https://godbolt.org/z/rzJeyX))
+##### Listing B: behavior without URVO and with URVO ([run this code](https://godbolt.org/z/Ape7pT))
 
 {% include multi-column-start.html c=1 h="Without URVO" %}
 
@@ -146,12 +146,12 @@ int main() {
 Named RVO (NRVO) is concerned with the optimization performed for "named objects", which
 are objects returned but not created on a `return` statement. Listing C illustrates this
 optimization. As the comments point out, without NRVO, the code creates two instances of
-`S` are created, but with NRVO, it creates only one object.
+`S`, but with NRVO, it creates only one object.
 
 **Note:** GCC performs NRVO by default, but it can be disabled using the
 [`-fno-elide-constructors`](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#C_002b_002b-Dialect-Options)
 compiler option. In contrast, MSVC disables NRVO by default, but it can be enabled using
-[`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)#optimization-side-effects).
+[`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)).
 
 ---
 {% include bookmark.html id="Listing C" %}
@@ -313,7 +313,7 @@ dynamic object. `main` is responsible for freeing the dynamically-allocated obje
 ---
 {% include bookmark.html id="Listing E" %}
 
-##### Listing F: working around lack/loss of RVO ([run this code](https://godbolt.org/z/yqePKj))
+##### Listing F: working around lack/loss of RVO ([run this code](https://godbolt.org/z/5jbFzq))
 
 ```cpp
 void get_F1(S& s) {
@@ -334,7 +334,7 @@ int main() {
     S* ps{ get_F2() };
     std::cout << ps->i << '\n';
     delete ps;     // 3. dtor 2
-} // 4. dtor 2
+} // 4. dtor 1
 ```
 
 ---
@@ -432,7 +432,7 @@ int main() {
 ### 8.&nbsp;&nbsp; Summary
 
 RVO is a compiler technique to avoid copying objects when the object is returned as
-function's value. This optimization helps a function to efficiently return large objects
+function value. This optimization helps a function to efficiently return large objects
 while also simplifying the function's interface and eliminating scope for errors.
 
 C++ requires RVO only for temporary (unnamed) objects, but not for named objects. Also,
@@ -464,7 +464,7 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
        [Section 2](#2) for the "Without URVO" scenario?
 
     3. With copy elision disabled, set the compiler to use C++17 and compare the result
-       with the result from C++14. What confirmation does the comparision provide?
+       with the result from C++14. What confirmation does the comparison provide?
 
 2. Answer the following questions in relation to [this program](https://godbolt.org/z/knnn46)
    prepared to verify copy elision in C++98 using GCC 4.6.4:
@@ -488,7 +488,7 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
     5. In what ways does the C++98 code provided differ from the corresponding C++17
        code in Listing C?
 
-       **Note:** This question has nothing to with RVO, but it is opportunistically
+       **Note:** This question is unrelated to RVO, but it is opportunistically
        included to highlight some syntactic differences between C++98 and C++17.
 
 3. Disable copy elision for the code in Listings [D](#listing-d), [E](#listing-e), and
@@ -534,4 +534,4 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
    inform us about writing classes/structs and returning object values?
 
    [I apologize if this question seems underspecified, but being more specific gives
-   away too much of the solution. Please [DM](#discussion) if you like more information.]
+   away too much of the solution. Please DM if you like more information.]
