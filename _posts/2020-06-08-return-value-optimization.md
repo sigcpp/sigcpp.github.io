@@ -363,7 +363,7 @@ block in which the variable receives its object value. In this situation, altern
 such as those outlined in [Section 6](#6) would need to be used if it is necessary to
 avoid copying objects.
 
-Listing G shows two possible code organizations to meet the needs of a [real-life application](https://github.com/sigcpp/stl-lite/blob/4e56c9059101d4a35ce2741f304ac171999c3b6f/test/driver.cpp#L48-L88).
+Listing G shows two possible code organizations to meet the needs of a [real-life application](https://github.com/sigcpp/stl-lite/blob/87eef34616b5c5c377899f84f6bfb5b630b4501e/test/driver.cpp#L63-L135).
 Functions `get` and `use` in the listing are some functions that return and accept an
 instance of `S`, respectively. The code with the "Lose RVO" organization misses out on
 the RVO benefit (why?), but it is simple and readable, mainly because the exception
