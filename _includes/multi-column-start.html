@@ -1,19 +1,45 @@
 {% comment %}
     adds a column to a multi-column structure: starts the structure if creating first row
-    param n number of columns: 2 is the default; param c is column number: 1 is default
-    param h is text of column heading 
-    param md becomes value of markdown attribute of column: default "1"; "block" also used
+    
+    Parameters:
+
+    n, number of columns: 2 is the default
+    c, column number: 1 is default
+    h, text of column heading 
+    md, value of markdown attribute of column: default "1"; "block" also used
     - see https://michelf.ca/projects/php-markdown/extra/
+
+    include multi-column-end.html after last row's content to complete the structure
+
+    Example uses in pages and posts:
 
     {% include multi-column-start.html n=2 c=1 h="Side A" md="1" %}
 
     {% include multi-column-start.html n=3 c=3 md="block" %}
 
-    include multi-column-end.html after last row's content to complete the structure
+
+    Outputs the following HTML when n == 2, c == 1, h == "Side A", md == "1"
+    <div class="row">
+    <div class="column-2" markdown="1">
+    <div class="column-head">Side A</div>
+
+
+    Outputs the following HTML when n == 2, c == 2, h == "Side B", md == "1"
+    </div>
+    <div class="column-2" markdown="1">
+    <div class="column-head">Side B</div>
 
     See example of stacking columns (stacking does not work presently):
     - https://www.w3schools.com/howto/howto_css_two_columns.asp
     - https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_two_columns_responsive
+
 {% endcomment %}
 
-See RVO post
+{%- assign n = include.n | default: 2 -%}
+{%- assign c = include.c | default: 1 -%}
+{%- assign h = include.h -%}
+{%- assign md = include.md | default: "1" -%}
+
+{%- if c == 1 -%}<div class="row">{%- else -%}</div>{%- endif -%}
+<div class="column-{{ c }}" markdown="{{ md }}">
+{%- if h -%}<div class="column-head">{{ h }}</div>{%- endif -%}
