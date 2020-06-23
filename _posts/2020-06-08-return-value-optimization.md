@@ -23,7 +23,7 @@ be acceptable or even be better to forego this optimization.
 ### 1.&nbsp;&nbsp; Overview
 
 Return-value optimization is part of a category of optimizations enabled by "copy
-elision" (meaning "avoiding copying"). C++17 requires copy elision when a function returns a [temporary object](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0135r0.html)
+elision" (meaning "omitting copying"). C++17 requires copy elision when a function returns a [temporary object](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/p0135r0.html)
 (unnamed object), but [does not require it](https://timsong-cpp.github.io/cppwp/n4659/class.copy.elision#1.1)
 when a function returns a named object. Also, whether copy elision is
 helpful depends on how the function's return value is consumed. Thus, it is important to
@@ -371,7 +371,7 @@ application.
 ---
 {% include bookmark.html id="Listing G" %}
 
-##### Listing G: effect of code organization ([run this code](https://godbolt.org/z/V2ZASh))
+##### Listing G: effect of code organization ([run this code](https://godbolt.org/z/XJRU92))
 
 {% include multi-column-start.html c=1 h="Lose RVO, sequential exception handling" %}
 
