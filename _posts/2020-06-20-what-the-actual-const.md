@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: intermediate
 cpp_versions: "Any C++"
 reader_activity: exercises
+tweet_url: https://twitter.com/sigcpp/status/1276606804303192064
 ---
 
 This post discusses the effect of `const` qualifications in pointer declarations,
