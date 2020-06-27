@@ -49,9 +49,9 @@ four forms with a separate pointer variable declared using each form.
 [_cv-qualifier-sequence_](https://timsong-cpp.github.io/cppwp/n4659/dcl.ptr#1).
 
 This post uses the colloquial "West `const`" convention to place the `const` keyword
-(the same convention the C++ standard uses). The code at the link included in Listing A's
-caption shows the pointer declarations using ["East `const`"](https://mariusbancila.ro/blog/2018/11/23/join-the-east-const-revolution/)
-convention. I support and recommend West `const` placement.
+(the same convention the C++ standard uses). The link included in Listing A's caption
+shows code using both West `const` and ["East `const`"](https://mariusbancila.ro/blog/2018/11/23/join-the-east-const-revolution/)
+conventions.
 
 ---
 {% include bookmark.html id="Listing A" %}
