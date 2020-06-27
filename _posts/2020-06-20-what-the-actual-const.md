@@ -400,8 +400,12 @@ impose both data `const`ness and pointer `const`ness on the array parameter.
 
 ### 6.&nbsp;&nbsp; Exercises
 
-**Note:** Complete the exercises in C++17 using GCC 10.1. Do **not** suppress any compiler
-warning.
+**Note:** Complete the exercises in C++17 using GCC 10.1. Do **not** suppress any
+compiler warning. Use the following exact set of compiler options:
+
+```
+-std=c++17 -Wall -Wextra -pedantic
+```
 
 1. Write a program with the following functions. In `main`, print the type name of the
    value returned from each function. Also, briefly describe in English what the presence
@@ -424,15 +428,39 @@ warning.
 
 2. Write four versions of a function to return the length of a C-string. Name the
    versions `len_1`, `len_2`, `len_3`, and `len_4`, and have each version receive a
-   C-string parameter using a different permutation of `const`ness. Then do the following
-   in `main`:
+   C-string parameter using a different permutation of `const`ness. In the body of each
+   version, declare/use only pointer variables and apply the strictest `const`ness on the
+   variables based on the operations performed on the variable. For example, if the
+   pointer variable is not used to modify the data, give it data `const`ness; if the
+   address is not modified, (also) give it pointer `const`ness.
 
     {:start="a"}
-    1. Call each of the four functions to find the length of the same C-string literal,
-       and print the value returned from each call. Directly specify the literal as the
-       argument in all four function calls. For example, use the calls `len_1("hello")`,
-       `len_2("hello")`, and so on.
+    1. In `main`, call each of the four functions to find the length of the same
+       C-string literal (for example, `"hello"`), and print the value returned from each
+       call. Directly specify the literal as the argument in all four function calls.
+       Use any casting operations necessary to remove any compiler error or warning. (Do
+       **not** suppress errors or warnings using compiler options.)
 
-    2. Call each of the four functions again to find the length of a C-string the user
-       supplies at run time and print the value returned from each call. Use the same
-       user-supplied C-string in all four calls.
+    2. Also in `main`, call each of the four functions again to find the length of some
+       text the user supplies at run time, and print the value returned from each call.
+       Use the same user-supplied text in all four calls. Model the user-supplied text
+       as a C-string and assume the user enters no more than 99 characters.
+
+    3. Which version of the length function is safest for another function to call in
+       terms of assuring no side effect to the caller? Why?
+
+    4. Which version of the length function is safest within itself in terms of assuring
+       that only the variables (including the parameter) intended to be modified are
+       modified? If none of four versions is the safest within itself, write another
+       version you deem is safest (OK to use non-pointer variables). Explain how the new
+       version improves safety within the function.
+
+    5. Which version of the length function is "safe enough" for use overall? Why?
+
+    6. Is there some code that can be used **unchanged as the entire function body** in
+       all four initial versions of the length function? If yes, what is it? If no such
+       code exists, why not?
+
+    7. Write a new version of the length function that declares no variables in its body
+       and provides its parameter both data `const`ness and pointer `const`ness. This
+       version should **not** call any other version of the length function.
