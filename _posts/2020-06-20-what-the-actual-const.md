@@ -457,8 +457,8 @@ compiler warning. Use the following exact set of compiler options:
 
     5. Which version of the length function is "safe enough" for use overall? Why?
 
-    6. Is there some code that can be used **unchanged as the entire function body** in
-       all four initial versions of the length function? If yes, what is it? If no such
+    6. Is there some code that can be used **unchanged as the entire function body in
+       all four initial versions** of the length function? If yes, what is it? If no such
        code exists, why not?
 
     7. Write a new version of the length function that declares no variables in its body
