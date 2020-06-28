@@ -293,7 +293,8 @@ modification would have side effects.
 
 All permutations in this case permit modification of the pointers to C-strings, and any
 such modification would have side effect. If any permutation permits modification of
-the characters in C-strings, such modification would also have side effects. However, where `argv` itself is modifiable, such modification would **not** have side effect.
+the characters in C-strings, such modification would also have side effects. However,
+where `argv` itself is modifiable, such modification would **not** have side effect.
 
 1. `char** argv`: Nothing is `const`. The characters in the C-strings and `argv` itself
     may be modified.
@@ -308,7 +309,7 @@ the characters in C-strings, such modification would also have side effects. How
 ---
 {% include bookmark.html id="Listing C" %}
 
-##### Listing C: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/oaDR2P))
+##### Listing C: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/uTL_6J))
 
 {% include multi-column-start.html c=1 h="Array of <code>char</code> pointers" %}
 
