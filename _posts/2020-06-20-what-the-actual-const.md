@@ -215,7 +215,7 @@ prepared to illustrate `const` qualification on an array's decay types.
 Array decay types with and without data `const`ness are frequently used with
 [C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ), which are just
 `char` arrays. For example, the library function [`std::strcpy`](https://en.cppreference.com/w/cpp/string/byte/strcpy)
-receives the destination array as `char*` so that the destination can be modified, but it
+receives the destination array as `char*` so that it can be modified, but the function
 receives the source array as `const char*` because the source is only read.
 
 **Note:** The term "pointer to array" is commonly used to mean a pointer to the first
