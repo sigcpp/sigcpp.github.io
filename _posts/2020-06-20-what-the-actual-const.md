@@ -348,7 +348,7 @@ where `argv` itself is modifiable, such modification would **not** have side eff
 ---
 {% include bookmark.html id="Listing D" %}
 
-##### Listing D: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/-kD-j3))
+##### Listing D: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/b3Prw4))
 
 {% include multi-column-start.html c=1 h="Array of <code>char</code> pointers" %}
 
