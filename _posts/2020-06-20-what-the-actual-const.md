@@ -216,7 +216,46 @@ Array decay types with and without data `const`ness are frequently used with
 [C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ), which are just
 `char` arrays. For example, the library function [`std::strcpy`](https://en.cppreference.com/w/cpp/string/byte/strcpy)
 receives the destination array as `char*` so that the destination can be modified, but it
-receives the source array as `const char*` because the source is only read.  
+receives the source array as `const char*` because the source is only read.
+
+**Note:** The term "pointer to array" is commonly used to mean a pointer to the first
+element of an array. Such a pointer is no different than any other pointer, except it is
+acceptable to perform "arithmetic" (that is, add an offset) with a pointer to an array.
+However, it is important that the result of pointer arithmetic be a pointer to some
+element of the array because dereferencing an "out of bounds" pointer results in
+**undefined behavior (UB)**.
+
+Avoid performing arithmetic on a pointer to non-array data, because dereferencing the
+resulting pointer also causes UB.
+
+Listing C shows some examples of well-defined and undefined behaviors when pointers are
+dereferenced.
+
+---
+{% include bookmark.html id="Listing C" %}
+
+##### Listing C: well-defined and undefined behaviors when dereferencing ([run this code](https://godbolt.org/z/4h6YKX))
+
+```cpp
+int a[5]{ 3, 8, 0, 1, 7 }; // a's bound (size) is 5
+
+int* p1 = a;        // p1 points to a[0]
+int* p2 = a + 1;    // p2 points to a[1]
+std::cout << "*p1: " << *p1 << '\n';
+std::cout << "*p2: " << *p2 << '\n';
+
+int* p3 = p1 + 5; // p3 points to a[5] which is out of bounds
+std::cout << "*p3: " << *p3 << '\n'; // bad: UB
+
+int x { 10 }; // x is not an array
+int* p4 = &x; // OK to take address of x
+
+p4++;    // p4 points to memory past x
+*p4 = 1; // bad: UB
+}
+```
+
+---
 
 {% include bookmark.html id="4" %}
 
@@ -232,7 +271,7 @@ into `std::string` or [`std::string_view`]( {{ '/2020/04/03/efficiently-processi
 objects, and if necessary, collect those objects in a container such as `std::vector`.
 However, there are situations where it is better to directly work with C-strings and
 arrays of C-strings. In those situations, take care to access only the portions of
-memory that are allocated for the data with which you are working.  
+memory that are allocated for the data with which you are working. 
 
 A C++ program is able to receive command-line arguments with a [`main` function](https://timsong-cpp.github.io/cppwp/n4659/basic.start.main#2.2)
 of the form `int main(int argc, char** argv)`, where `argc` is the number of arguments
@@ -252,7 +291,7 @@ function parameter representing an array of C-strings. The effects are summarize
 two headings: `argv` as an array of `char` pointers, and `argv` as a pointer to pointer
 to `char`.
 
-Listing C shows some code to illustrate the effect of `const`ness permutations. For
+Listing D shows some code to illustrate the effect of `const`ness permutations. For
 simplicity only, the code assumes that the argument passed is an array of at least two
 C-strings and that the first C-string has at least one non-null character in it. The
 code at the link included in the listing's caption has additional comments.
@@ -262,7 +301,7 @@ pointers (instead of a pointer to pointer to `char`), because that approach make
 possible for a function to guarantee that it does **not** modify the characters in the
 C-strings or the pointers to C-strings. It can provide this guarantee by declaring the
 parameter using Form 4 as follows: `const char* const argv[]`. Also, as evidenced in
-Listing C, this form makes the code more readable due to one less level of explicit
+Listing D, this form makes the code more readable due to one less level of explicit
 indirection needed to access both the pointers to C-strings and the characters in
 C-strings.
 
@@ -307,9 +346,9 @@ where `argv` itself is modifiable, such modification would **not** have side eff
    `const`.
 
 ---
-{% include bookmark.html id="Listing C" %}
+{% include bookmark.html id="Listing D" %}
 
-##### Listing C: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/-kD-j3))
+##### Listing D: forms of pointer to array of pointers ([run this code](https://godbolt.org/z/-kD-j3))
 
 {% include multi-column-start.html c=1 h="Array of <code>char</code> pointers" %}
 
