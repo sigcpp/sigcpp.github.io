@@ -511,9 +511,9 @@ only unnamed objects, or optimization in relation to either named or unnamed obj
     1. What can we say about the RVO that might be performed in function `f`, without
        regard for how and where `f` is used? Include a rationale for your position.
 
-    2. How and why would your position change for this statment: `S s = f();`
+    2. How and why would your position change for this statement: `S s = f();`
 
-    3. How and why would your position change for this statment sequnce: `S s; s = f();`
+    3. How and why would your position change for this statement sequence: `S s; s = f();`
 
 6. Revise the code in [Listing E](#listing-e) as follows in C++17 using GCC 10.1. Then,
    based on the revised program's output, answer this question: Does the revised `main`
