@@ -213,7 +213,7 @@ pointers, the use of pointer `const`ness is uncommon. Study [this program](https
 prepared to illustrate `const` qualification on an array's decay types.
 
 Array decay types with and without data `const`ness are frequently used with
-[C-strings]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} ), which are just
+[C-strings]({% include post-link.html id="1" %}), which are just
 `char` arrays. For example, the library function [`std::strcpy`](https://en.cppreference.com/w/cpp/string/byte/strcpy)
 receives the destination array as `char*` so that it can be modified, but the function
 receives the source array as `const char*` because the source is only read.
@@ -267,7 +267,7 @@ section use arrays of C-strings, but the details apply equally to arrays of poin
 any type of data.
 
 **Note:** When processing command-line arguments, it may be better to transform C-strings
-into `std::string` or [`std::string_view`]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
+into `std::string` or [`std::string_view`]({% include post-link.html id="2" %})
 objects, and if necessary, collect those objects in a container such as `std::vector`.
 However, there are situations where it is better to directly work with C-strings and
 arrays of C-strings. In those situations, take care to access only the portions of
