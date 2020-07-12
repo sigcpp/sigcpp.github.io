@@ -252,7 +252,6 @@ int* p4 = &x; // OK to take address of x
 
 p4++;    // p4 points to memory past x
 *p4 = 1; // bad: UB
-}
 ```
 
 ---
