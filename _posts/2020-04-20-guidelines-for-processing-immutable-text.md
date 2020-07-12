@@ -13,8 +13,8 @@ This post presents detailed guidelines for using `std::string_view`. It includes
 of 21 guidelines, grouped into five categories.
 
 This post concludes the 3-part series on processing immutable text.
-[Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
-of the series focuses on efficiency aspects of processing immutable text. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
+[Part 1]({% include post-link.html id="2" %})
+of the series focuses on efficiency aspects of processing immutable text. [Part 2]({% include post-link.html id="3" %})
 focuses on safety.
 <!--more-->
 
@@ -33,7 +33,7 @@ guidelines in this section pertain to choosing among the three means.
    (or requires computing length in case of C-strings).
 
 2. **Prefer string_view over string** if many objects are created either directly using
-   constructors or indirectly using `substr` function (because string creation is [slower]( {{ '/2020/04/03/efficiently-processing-immutable-text#2' | relative_url }} )).
+   constructors or indirectly using `substr` function (because string creation is [slower]({% include post-link.html id="2#2" %})).
    Likewise, prefer string_view over string if many assignments are made.
 
 3. **`const` qualify immutable data**. In a situation where data is mutable and a part
@@ -60,7 +60,7 @@ guidelines in this section pertain to choosing among the three means.
 
    **Note:** Data in a string_view is immutable even if the string_view is not `const`
    qualified. The effect of `const` qualification is to prevent assignment and the use of
-   [modifier functions]( {{ '/2020/04/03/efficiently-processing-immutable-text#4' | relative_url }} ).
+   [modifier functions]({% include post-link.html id="1#4" %}).
 
    It is good practice to `const` qualify string_views and selectively remove `const`
    where assignment or modification is required.
@@ -110,9 +110,9 @@ may or may not be null-terminated.
    string_view expands the contexts in which code can be used while also improving
    efficiency, safety, and maintainability.
 
-   For example, consider function `vowel_count` in [Listing D of Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#listing-d' | relative_url }} ).
+   For example, consider function `vowel_count` in [Listing D of Part 2]({% include post-link.html id="3#listing-d" %}).
    The string_view overload there works for any kind of character arrays, but the
-   `const char*` overload works only for C-strings. Indeed, anyone attempting [Exercise 4 of Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#6' | relative_url }} )
+   `const char*` overload works only for C-strings. Indeed, anyone attempting [Exercise 4 of Part 2]({% include post-link.html id="3#6" %})
    sees that supporting `vowel_count` for bare arrays can result in inefficient code,
    redundant code, or somewhat convoluted (less maintainable) code.
 
@@ -174,7 +174,7 @@ may or may not be null-terminated.
 16. **Create a function template if a function should work with both string and
     string_view arguments** without converting a string to string_view and vice versa.
     This need is likely to arise as the use of string_views increases over time. For
-    example, it makes sense to have function [`vowel_count`]( {{ '/2020/04/07/safely-processing-immutable-text#listing-d' | relative_url }} )
+    example, it makes sense to have function [`vowel_count`]({% include post-link.html id="3#listing-d" %})
     work with both string and string_view arguments without creating new a object first.
 
 {% include bookmark.html id="5" %}
@@ -183,7 +183,7 @@ may or may not be null-terminated.
 
 {:start="17"}
 
-17. **Do not let a string_view object outlive the data it wraps**. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#4' | relative_url }} )
+17. **Do not let a string_view object outlive the data it wraps**. [Part 2]({% include post-link.html id="3#4" %})
 discusses the safety issue that motivates this guideline.
 
 18. **Check string_view size before accessing data**. The subscript operator as well as
@@ -226,13 +226,12 @@ discusses the safety issue that motivates this guideline.
 
 ### 6.&nbsp;&nbsp; Summary
 
-As [Part 1]( {{ '/2020/04/03/efficiently-processing-immutable-text' | relative_url }} )
-of this series shows, `std::string_view` can be more efficient than `std::string` when
-working with immutable text. And, as [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
-shows, string_view is safer than directly operating on an immutable character array.
-However, there are many efficiency and safety considerations to be made when using
-string_view. The guidelines included in this post are designed to help make informed
-choices.
+As [Part 1]({% include post-link.html id="2" %}) of this series shows, `std::string_view`
+can be more efficient than `std::string` when working with immutable text. And, as
+[Part 2]({% include post-link.html id="3" %}) shows, string_view is safer than directly
+operating on an immutable character array. However, there are many efficiency and safety
+considerations to be made when using string_view. The guidelines included in this post are
+designed to help make informed choices.
 
 {% include bookmark.html id="7" %}
 

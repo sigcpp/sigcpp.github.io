@@ -16,8 +16,9 @@ main-memory usage and executable size. It can also make programs safer and more
 maintainable.
 
 This is Part 1 of a 3-part series on `std::string_view`. This part focuses on efficiency
-of `std::string_view` over `std::string`. [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
-focuses on safety. [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} ) provides guidelines for using `std::string_view`.
+of `std::string_view` over `std::string`. [Part 2]({% include post-link.html id="3" %})
+focuses on safety. [Part 3]({% include post-link.html id="5" %}) provides guidelines for
+using `std::string_view`.
 <!--more-->
 
 {% include bookmark.html id="1" %}
@@ -33,7 +34,7 @@ A string_view object can be created using one of its [five constructors](https:/
 1. Default constructor: represents an empty string
 2. Copy constructor
 3. Custom constructor which accepts a character array and a size
-4. Custom constructor which accepts a [C-string]( {{ '/2020/03/30/exploring-c-strings' | relative_url }} )
+4. Custom constructor which accepts a [C-string]({% include post-link.html id="1" %})
 5. Custom constructor which accepts a range of characters as iterators (not discussed
    in this post)
 
@@ -49,8 +50,8 @@ std::string_view sv1{s};  // initialize from string using copy ctor
 std::string_view sv2 = s; // initialize by assigning a string
 ```
 
-**Note:** [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text#1' | relative_url }} )
-of this series examines string_view creation means in more detail.
+**Note:** [Part 2]({% include post-link.html id="3#1" %}) of this series examines
+string_view creation means in more detail.
 
 {% include bookmark.html id="2" %}
 
@@ -276,6 +277,6 @@ Overall, `std::string_view` provides more efficient ways to process immutable da
 `std::string` does. This efficiency is seen in object creation, general processing, and
 "modification".
 
-Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]( {{ '/2020/04/07/safely-processing-immutable-text' | relative_url }} )
-focuses on safety. [Part 3]( {{ '/2020/04/20/guidelines-for-processing-immutable-text' | relative_url }} )
-provides guidelines on using string_view.
+Whereas this part of the 3-part series on string_view focuses on efficiency, [Part 2]({% include post-link.html id="3" %})
+focuses on safety. [Part 3]({% include post-link.html id="5" %}) provides guidelines on
+using string_view.
