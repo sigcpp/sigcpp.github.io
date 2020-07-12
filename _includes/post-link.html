@@ -1,31 +1,27 @@
 {% comment %}
-    write a post's url as a relative url using information in the id passed
-    the id could be just an id to a post or an id with a bookmark
-    use the id received to locate a post in site.posts. Example uses follow.
+    write a post's url as a relative url using information in the id parameter. designed
+    to be used in markdown inside the parentheses used to specify a link.
 
-    {% include post-link.html id="19" %}
-    19 is the id assigned to the post (in the post's header)
+    parameter id could be just the pid of a post or a pid with a bookmark;
+    if bookmark is included, id should be of the form pid#bookmark; the bookmark may or may
+    not be slugified
+    
+    uses pid to locate a post in site.posts. Example uses follow.
 
-    {% include post-link.html id="23#Listing A" %}
-    23 is the id assigned to the post; "Listing A" is a pre-slug bookmark
+    [C-strings]({% include post-link.html id="1" %})
+    1 is the pid assigned to the post (in the post's front matter)
 
-    {% include post-link.html id="17#listing-b" %}
-    17 is the id assigned to the post; "listing-b" is a slugified bookmark
-    is a pre-slug bookmark
+    [string_view creation]({% include post-link.html id="2#Listing A" %})
+    2 is the pid assigned to the post; "Listing A" is a pre-slug bookmark
+
+    [string_view creation]({% include post-link.html id="2#listing-a" %})
+    2 is the pid assigned to the post; "listing-a" is a slugified bookmark
 {% endcomment %}
 
 {%- assign link_parts = include.id | split: "#" -%}
 {%- assign bookmark = link_parts[1] -%}
 
-{% comment %}
-   TO DO
-   the post's id and the bookmark are extracted OK from the parameter
-   but the post is not found in the collection
-   try calling with actual post URL as id (default post id is same as slug)
-   try using a tag name other than id in post's front matter?
-{% endcomment %}
-
-{%- assign post = site.posts | where: 'id', link_parts[0]  | first -%}
+{%- assign post = site.posts | where: 'pid', link_parts[0]  | first -%}
 {%- if post -%}
    {{- post.url | relative_url -}}
    {%- if bookmark -%}#{{- bookmark | slugify -}}{%- endif -%}
