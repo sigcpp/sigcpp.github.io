@@ -60,7 +60,7 @@ guidelines in this section pertain to choosing among the three means.
 
    **Note:** Data in a string_view is immutable even if the string_view is not `const`
    qualified. The effect of `const` qualification is to prevent assignment and the use of
-   [modifier functions]({% include post-link.html id="1#4" %}).
+   [modifier functions]({% include post-link.html id="2#4" %}).
 
    It is good practice to `const` qualify string_views and selectively remove `const`
    where assignment or modification is required.
@@ -175,7 +175,7 @@ may or may not be null-terminated.
     string_view arguments** without converting a string to string_view and vice versa.
     This need is likely to arise as the use of string_views increases over time. For
     example, it makes sense to have function [`vowel_count`]({% include post-link.html id="3#listing-d" %})
-    work with both string and string_view arguments without creating new a object first.
+    work with both string and string_view arguments without creating a new object first.
 
 {% include bookmark.html id="5" %}
 
@@ -199,7 +199,7 @@ discusses the safety issue that motivates this guideline.
     operators. For example:
 
     - Use member functions such as `at`, `find`, `substr`, and `copy`
-    - Use iterators: For cleaner code, use range-based for loops where possible
+    - Use iterators: Also, for cleaner code, use range-based for loops where possible
     - Use the [algorithms library](https://en.cppreference.com/w/cpp/algorithm)
       where possible
     - Use operators such as subscript, comparison, and stream insertion
@@ -207,7 +207,7 @@ discusses the safety issue that motivates this guideline.
 21. **Do not cast away `const`ness of data**. Sometimes it might be necessary to use the
     `data` member when invoking a function that can only receive a character array, but
     beware of functions that require a non-`const` array. Having to remove `const`ness
-    is a code smell and it is a hint that the program design needs to be reviewed.
+    is a code smell and a hint that the program design needs to be reviewed.
 
     Instead of removing `const`ness, [copy](https://en.cppreference.com/w/cpp/string/basic_string_view/copy)
     the string_view data to another array and work on the copy. However, the copy and the
