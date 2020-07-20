@@ -5,6 +5,7 @@ date: 2020-07-10
 authors: smurthys
 cpp_level: introductory
 cpp_versions: "Any C++"
+tweet_url: https://twitter.com/sigcpp/status/1285290122985066500
 reader_activity: exercises
 ---
 
