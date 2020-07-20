@@ -327,7 +327,7 @@ Here are a few things to keep in mind when using the macros presented:
    ```
 
 2. The macros in Listings B, C, and D use `std::cout` as the default output stream, but
-   in some programs, a different streams such as `std::cerr` might be better. Modify each
+   in some programs, a different stream such as `std::cerr` might be better. Modify each
    of the programs linked in Listings B, C, and D to define a single symbol which stands
    for the default stream to use and then use the new symbol in the remainder of the
    program. Assume the programmer edits the definition of the symbol to set the default
