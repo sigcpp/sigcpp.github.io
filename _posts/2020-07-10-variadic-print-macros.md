@@ -18,8 +18,12 @@ much educational value due to some tricky issues that need to be addressed in as
 a practical solution.
 <!--more-->
 
-**Note:** All macros are verified in C++98, C++11, C++14, and C++17 using GCC 10.1. They
+{% include start-aside.html kind="info" %}
+
+All macros are verified in C++98, C++11, C++14, and C++17 using GCC 10.1. They
 are also verified in C++14 and C++17 using Visual Studio 2019 Version 16.5.5.
+
+{% include end-aside.html %}
 
 {% include bookmark.html id="1" %}
 
@@ -179,9 +183,13 @@ points are worth noting about the modularized macros:
   new-line inserting macros follow. [Exercise 3](#7) explores the reason for the
   difference.
 
-**Note:** Use the modularized macros shown in Listing C, instead of using the initial
+{% include start-aside.html kind="info" %}
+
+Use the modularized macros shown in Listing C, instead of using the initial
 macros shown in Listing B: the macros in Listing C are easier to maintain due to code
 reuse. (See [Exercise 2](#7).)
+
+{% include end-aside.html %}
 
 ---
 {% include bookmark.html id="Listing C" %}

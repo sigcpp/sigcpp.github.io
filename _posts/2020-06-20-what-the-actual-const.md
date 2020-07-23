@@ -28,8 +28,12 @@ pointers and traditional arrays are the only/better choice, and in those cases u
 `const` qualification correctly to maximize safety.
 <!--more-->
 
-**Note:** All examples in this post are verified in both C++98 and C++17 using GCC 10.1.
-The examples are also verified in C++17 using Visual Studio 2019 Version 16.5.5.
+{% include start-aside.html kind="info" %}
+
+All examples in this post are verified in both C++98 and C++17 using GCC 10.1. The
+examples are also verified in C++17 using Visual Studio 2019 Version 16.5.5.
+
+{% include end-aside.html %}
 
 {% include bookmark.html id="1" %}
 

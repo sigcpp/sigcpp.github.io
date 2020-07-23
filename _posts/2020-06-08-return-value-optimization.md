@@ -47,9 +47,13 @@ show when the assignment operator and the destructor are called. The static vari
 this rig to illustrate RVO and to check the circumstances in which RVO is performed or
 is helpful.
 
-**Note:** All examples and optimizations described in this post are verified in C++17
-using both GCC 10.1 and Visual Studio 2019 Version 16.5.5. The code in Listings A, B,
-and C is also verified in C++98 using GCC 4.1.2.
+{% include start-aside.html kind="info" %}
+
+All examples and optimizations described in this post are verified in C++17 using both
+GCC 10.1 and Visual Studio 2019 Version 16.5.5. The code in Listings A, B, and C is also
+verified in C++98 using GCC 4.1.2.
+
+{% include end-aside.html %}
 
 ---
 {% include bookmark.html id="Listing A" %}
@@ -103,8 +107,9 @@ constructor, and the object named `s` in `main` using the copy constructor. Howe
 with URVO, the same code would create just one object. The comments in code call out the
 location and sequence of object creation and destruction.
 
-**Note:** Both GCC and MSVC perform URVO by default, and it is not possible to disable it because C++17 guarantees copy elision when a temporary object is returned. (URVO can
-be disabled in C++14. See [Exercise 1](#9).)
+**Note:** Both GCC and MSVC perform URVO by default, and it is not possible to disable it because
+C++17 guarantees copy elision when a temporary object is returned. (URVO can be disabled in C++14.
+See [Exercise 1](#9).)
 
 ---
 {% include bookmark.html id="Listing B" %}
@@ -148,10 +153,15 @@ are objects returned but not created on a `return` statement. Listing C illustra
 optimization. As the comments point out, without NRVO, the code creates two instances of
 `S`, but with NRVO, it creates only one object.
 
-**Note:** GCC performs NRVO by default, but it can be disabled using the
+{% include start-aside.html kind="warn" show_icon=true %}
+
+- GCC performs NRVO by default, but it can be disabled using the
 [`-fno-elide-constructors`](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#C_002b_002b-Dialect-Options)
-compiler option. In contrast, MSVC disables NRVO by default, but it can be enabled using
-[`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)).
+compiler option.
+
+- MSVC disables NRVO by default, but it can be enabled using [`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)).
+
+{% include end-aside.html %}
 
 ---
 {% include bookmark.html id="Listing C" %}
