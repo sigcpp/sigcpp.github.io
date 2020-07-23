@@ -138,8 +138,8 @@ int strcmp(const char *s1, const char *s2); // compare two C-strings
 {% include start-aside.html kind="info" %}
 
 Just a reminder that `std::string` provides a safer and easier means to work with
-character data. If you must use a C-string, consider using it with the light-weight
-wrapper [`std::string_view`]({% include post-link.html id="2" %}).
+character data. Additionally, [`std::string_view`]({% include post-link.html id="2" %})
+provides a safe and lightweight wrapper for C-strings if performing read-only operations.
 
 {% include end-aside.html %}
 
