@@ -37,7 +37,7 @@
 
     Outputs the following HTML when kind == "warn" show_icon == true icon_size="200%"
     <aside class="warning">
-        <div>
+        <div class="row">
             <div class="aside-icon" style="font-size:200%">⚠️</div>
             <div>
                 warning text
@@ -49,7 +49,7 @@
 {%- assign kind = include.kind | default: "info" -%}
 {%- assign icon = include.icon -%}
 {%- assign aside_show_icon = include.show_icon | default: (icon != nil) -%}
-{%- if show_icon and icon == nil %}
+{%- if aside_show_icon and icon == nil %}
 {%- case kind -%}
   {%- when "warn" -%}{%- assign icon = "⚠️" -%}
   {%- when "stop" -%}{%- assign icon = "❌" -%}
@@ -61,7 +61,7 @@
 
 <aside class="{{ kind }}">
 {%- if aside_show_icon -%}
-    <div>
+    <div class="row">
     <div class="aside-icon" style="font-size:{{ icon_size }}">{{ icon }}</div>
 {%- endif -%}
     <div markdown="{{ md }}">
