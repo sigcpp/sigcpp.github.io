@@ -1,0 +1,64 @@
+{% comment %}
+    starts an aside; include end-aside.html to complete the aside
+    
+    Parameters:
+
+    kind: one of "info", "warn", "stop"; "info" is the default
+    icon: icon to show: expected to be a single character
+    - default icons based on kind: warn =⚠️; stop =❌; anything else = ℹ️;
+    show_icon: true or false
+    - default false if icon parameter omitted; true if icon param specified
+    - showing an icon makes the aside a 2-column layout; otherwise a 1-column layout 
+    icon_size: value of font-size CSS property for icon area; default is "100%"
+    md, value of markdown attribute of the content column: default "1"
+
+
+    Example uses in pages and posts:
+
+    {% include start-aside.html %}
+
+    {% include start-aside.html kind="info" show_icon=false md="1" %}
+
+    {% include start-aside.html kind="warning" show_icon=true %}
+
+    Example outputs shows below, assuming aside content and end-aside.html are included;
+    - the text content of aside element is the text between includes of start-aside.html
+      and end-aside.html
+
+    Outputs the following HTML when kind == "info"
+    <aside class="info">
+        <div markdown="1">
+            informational text
+        </div>       <-- done in end-aside.html
+    </aside>         <-- done in end-aside.html
+
+    Outputs the following HTML when kind == "warn" show_icon == true icon_size="200%"
+    <aside class="warning">
+        <div class="row">
+            <div style="font-size:200%">⚠️</div>
+            <div>
+                warning text
+            </div>   <-- done in end-aside.html
+        </div>       <-- done in end-aside.html
+    </aside>         <-- done in end-aside.html
+{% endcomment %}
+
+{%- assign kind = include.kind | default: "info" -%}
+{%- assign icon = include.icon -%}
+{%- assign show_icon = include.show_icon | default: (icon != nil) -%}
+{%- if show_icon and icon == nil %}
+{%- case kind -%}
+  {%- when "warn" -%}{%- assign icon = "⚠️" -%}
+  {%- when "stop" -%}{%- assign icon = "❌" -%}
+  {%- else -%}{%- assign icon = "ℹ️" -%}
+{%- endcase -%}
+{%- endif -%}
+{%- assign icon_size = include.icon_size | default: "100%" -%}
+{%- assign md = include.md | default: "1" -%}
+
+<aside class="{{ kind }}">
+{%- if show_icon -%}
+    <div class="row">
+    <div style="font-size:{{ icon_size }}">{{ icon }}</div>
+{%- endif -%}
+    <div markdown="{{ md }}">
