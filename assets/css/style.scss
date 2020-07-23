@@ -138,3 +138,30 @@ div.row > div.column-4 {
 @media print, screen and (max-width: 600px) {
   div.row > div.column-2, div.row > div.column-3, div.row > div.column-4 {width: 100%;}
 }
+
+/*
+ The following styles are for asides and are specialized for the following kinds of content:
+ - information, warning, stop
+*/
+aside {
+  padding: 15px 15px 1px 10px;
+}
+
+aside.info {
+  border-left: 5px solid rgb(134, 115, 245);
+  background-color: rgb(123, 124, 184);
+}
+
+aside.warn {
+  border-left: 5px solid rgb(246, 199, 112);
+  background-color: rgb(190, 180, 120);
+}
+
+aside.stop {
+  border-left: 5px solid rgb(245, 126, 116);
+  background-color: rgb(184, 129, 124);
+}
+
+aside div.aside-icon {
+  margin: auto;
+}
