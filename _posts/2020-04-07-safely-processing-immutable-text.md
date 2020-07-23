@@ -33,8 +33,12 @@ Listing A shows creation of four string_view objects, each using a different cre
 means. The object created from nothing (variable `sv1`) is effectively as if it is
 created from the empty C-string `""`.
 
-**Note:** Internally, a string_view created from nothing is **not** the same as a
-string_view created from an empty C-string [[string.view.cons](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)].
+{% include start-aside.html kind="warn" show_icon=true %}
+
+Internally, a string_view created from nothing is **not** the same as a string_view
+created from an empty C-string [[string.view.cons](https://timsong-cpp.github.io/cppwp/n4659/string.view#cons)].
+
+{% include end-aside.html %}
 
 ---
 
@@ -109,10 +113,14 @@ String_view function members [`data`](https://en.cppreference.com/w/cpp/string/b
 and [`size`](https://en.cppreference.com/w/cpp/string/basic_string_view/size) provide
 access to the internal data members `data_` and `size_` respectively.
 
-**Note:** It is important to understand how a string_view is able to wrap any character
-array using just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jUo9bh)
+{% include start-aside.html kind="info" %}
+
+It is important to understand how a string_view is able to wrap any character array using
+just the aforementioned data members. I recommend studying [this program](https://godbolt.org/z/jUo9bh)
 prepared to illustrate the effect of different creation means on the internals of a
 string_view object.
+
+{% include end-aside.html %}
 
 {% include bookmark.html id="4" %}
 

@@ -140,8 +140,11 @@ guarantee is due to the pointer (that is, the address) being passed by value.
 Study [this program](https://godbolt.org/z/8_KTcd) prepared to illustrate the
 declaration forms of non-array pointer parameters.
 
-**Advice:** Strive to use references instead of pointers for both variables and
-parameters.
+{% include start-aside.html kind="info" %}
+
+For both variables and parameters, strive to use references instead of pointers.
+
+{% include end-aside.html %}
 
 {% include bookmark.html id="2" %}
 

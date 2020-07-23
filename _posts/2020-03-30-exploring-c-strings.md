@@ -135,9 +135,13 @@ char* strcpy(char* dest, const char* src);  // copy a C-string to another
 int strcmp(const char *s1, const char *s2); // compare two C-strings
 ```
 
-**Reminder:** For safety and other reasons, prefer `std::string` when working with
+{% include start-aside.html kind="info" %}
+
+Just a reminder that `std::string` provides a safer and easier means to work with
 character data. If you must use a C-string, consider using it with the light-weight
-wrapper `std::string_view`.
+wrapper [`std::string_view`]({% include post-link.html id="2" %}).
+
+{% include end-aside.html %}
 
 {% include bookmark.html id="6" %}
 

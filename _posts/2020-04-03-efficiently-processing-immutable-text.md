@@ -224,8 +224,12 @@ approach to modification provides string_view considerable efficiency over the f
 [`erase`](https://en.cppreference.com/w/cpp/string/basic_string/erase)
 defined for string objects.
 
-**Note:** It is **not** possible to restore the range of the array once it is reduced
-using either `remove_prefix` or `remove_suffix`.  
+{% include start-aside.html kind="warn" show_icon=true %}
+
+It is **not** possible to restore the range of the array once it is reduced using either
+`remove_prefix` or `remove_suffix`.  
+
+{% include end-aside.html %}
 
 Listing C shows a program to extract space-delimited words from a string_view using
 function `remove_prefix`. A comparison with Listing B shows that Listing C is a bit

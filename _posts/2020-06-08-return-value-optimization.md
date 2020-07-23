@@ -155,11 +155,10 @@ optimization. As the comments point out, without NRVO, the code creates two inst
 
 {% include start-aside.html kind="warn" show_icon=true %}
 
-- GCC performs NRVO by default, but it can be disabled using the
+GCC performs NRVO by default, but it can be disabled using the
 [`-fno-elide-constructors`](https://gcc.gnu.org/onlinedocs/gcc/C_002b_002b-Dialect-Options.html#C_002b_002b-Dialect-Options)
-compiler option.
-
-- MSVC disables NRVO by default, but it can be enabled using [`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)).
+compiler option. In contrast, MSVC disables NRVO by default, but it can be enabled using
+[`/O2` optimization](https://docs.microsoft.com/en-us/previous-versions/ms364057(v=vs.80)).
 
 {% include end-aside.html %}
 
