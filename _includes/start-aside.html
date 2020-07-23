@@ -1,5 +1,8 @@
 {% comment %}
     starts an aside; include end-aside.html to complete the aside
+    - variable aside_show_icon is set here and used in end-aside.html
+    - do not rename variable aside_show_icon to show_icon or such: the name is chosen
+      to show that it belongs to aside management
     
     Parameters:
 
@@ -34,8 +37,8 @@
 
     Outputs the following HTML when kind == "warn" show_icon == true icon_size="200%"
     <aside class="warning">
-        <div class="row">
-            <div style="font-size:200%">⚠️</div>
+        <div>
+            <div class="aside-icon" style="font-size:200%">⚠️</div>
             <div>
                 warning text
             </div>   <-- done in end-aside.html
@@ -45,7 +48,7 @@
 
 {%- assign kind = include.kind | default: "info" -%}
 {%- assign icon = include.icon -%}
-{%- assign show_icon = include.show_icon | default: (icon != nil) -%}
+{%- assign aside_show_icon = include.show_icon | default: (icon != nil) -%}
 {%- if show_icon and icon == nil %}
 {%- case kind -%}
   {%- when "warn" -%}{%- assign icon = "⚠️" -%}
@@ -57,8 +60,8 @@
 {%- assign md = include.md | default: "1" -%}
 
 <aside class="{{ kind }}">
-{%- if show_icon -%}
-    <div class="row">
-    <div style="font-size:{{ icon_size }}">{{ icon }}</div>
+{%- if aside_show_icon -%}
+    <div>
+    <div class="aside-icon" style="font-size:{{ icon_size }}">{{ icon }}</div>
 {%- endif -%}
     <div markdown="{{ md }}">

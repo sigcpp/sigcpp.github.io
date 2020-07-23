@@ -1,31 +1,25 @@
 {% comment %}
     ends an aside; include start-aside.html to start the aside
     
-    Parameters:
+    No parameters, but uses the variable aside_show_icon set in start-aside.html to detect
+    if an icon was shown 
 
-    show_icon: true or false; default false
-    - if icon was shown or not shown by the corresponding start-aside
-
-    Example uses in pages and posts:
+    Example use in pages and posts:
 
     {% include end-aside.html %}
 
-    {% include end-aside.html show_icon=false %}
-
-    {% include end-aside.html show_icon=true %}
-
-    Outputs the following HTML when show_icon == false
+    Outputs the following HTML if aside_show_icon == false in start-aside.html
     </div>
     </aside>    
 
-    Outputs the following HTML when show_icon == true
+    Outputs the following HTML if aside_show_icon == true in start-aside.html
     </div>
     </div>
     </aside>    
 {% endcomment %}
 
-{%- if show_icon -%}
+{%- if aside_show_icon -%}
     </div>
 {%- endif -%}
     </div>
-    </aside>    
+    </aside>
