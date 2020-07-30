@@ -14,8 +14,8 @@ a step-by-step exposition of the use cases and the design leading to the use of 
 macros to satisfy requirements. In the process, the post also touches on the decision (and a need) to use macros instead of function templates.
 
 There is decidedly not much to the macros, but I chose to describe them because there is
-much educational value due to some tricky issues that need to be addressed in assembling
-a practical solution.
+much educational value due to some tricky issues that need to be addressed in a practical
+solution.
 <!--more-->
 
 {% include start-aside.html kind="info" %}
@@ -212,7 +212,63 @@ reuse. (See [Exercise 2](#7).)
 
 {% include bookmark.html id="5" %}
 
-### 5.&nbsp;&nbsp; Optionally setting the output stream
+### 5.&nbsp;&nbsp; Handling commas in expression text
+
+The macros PRINT_X and PRINT_XLN in Listing C are quite handy, but they do not handle argument expressions involving commas, specifically if the commas are not inside
+parentheses. The code segment below provides  examples of expressions without and with
+issues:
+
+```cpp
+    PRINT_XLN(f(1,2)); // OK: comma interpreted correctly
+    PRINT_XLN(1,2);    // error: comma not inside parens
+    PRINT_XLN(std::array<int,2>().size()); // error: comma not inside parens
+```
+
+The obvious solution is to place offending expressions inside parentheses and force the
+pre-processor treat the parenthesized expression as one argument. However, that approach
+causes the heading to include parentheses, which may not be intended.
+
+A cleaner alternative is to place the offending expression in parentheses but not print
+the parentheses in the heading. Listing D shows this solution using two new macros
+`PRINT_PX` and `PRINT_PXLN` ("PX" stands for parenthesized expression) and a function
+`print_px`.
+
+Macros `PRINT_PX` and `PRINT_PXLN` simply invoke function `print_px` with the text of the
+expression.
+
+Function `print_px` is admittedly very cryptic, and that is due to it being made as short
+as possible to keep the entire solution short (making it easy to paste into any program).
+This function receives a [constant C-string]({% include post-link.html id="7#3" %})
+(because `#x` in the calling macro is guaranteed to be a C-string literal). It assumes
+the C-string is enclosed in parentheses and simply prints everything in the C-string
+except the outermost parentheses.
+
+---
+{% include bookmark.html id="Listing D" %}
+
+##### Listing D: handling commas in expression text ([run this code](https://godbolt.org/z/eYG541))
+
+```cpp
+std::ostream& print_px(const char* px) {
+    for(char c = *++px; !(c == ')' && !*(px+1)); std::cout << c, c = *++px);
+    return std::cout;
+}
+
+#define PRINT_PX(x) print_px(#x) << ": " << (x)
+#define PRINT_PXLN(x) print_px(#x) << ": " << (x) << '\n';
+
+int main() {
+    PRINT_XLN(f(1,2)); // continue to use PRINT_XLN
+    PRINT_PXLN((1,2)); // parenthesize and use the custom macro
+    PRINT_PXLN((std::array<int,2>().size())); // parenthesize and use the custom macro
+}
+```
+
+---
+
+{% include bookmark.html id="6" %}
+
+### 6.&nbsp;&nbsp; Optionally setting the output stream
 
 The macros presented thus far send output only to `std::cout`. However, sometimes it may
 be necessary to optionally send output to a different stream. This feature can be
@@ -230,24 +286,24 @@ The following key information applies to variadic macros:
 - Variadic macros were introduced in C++11.
 
 - Until C++20, the ellipsis in a macro definition stands for "one or more arguments".
-  That is, at least one argument must be supplied to the variadic portion of the macro's
-  parameters. For example, invoking the variadic macro `F(x,...)` requires at least two
-  arguments: one for the fixed parameter `x`; another for the variadic part.
+  That is, at least one argument must be supplied to the variadic parameter. For example,
+  invoking the variadic macro `F(x,...)` requires at least two arguments: one for the
+  fixed parameter `x`; another for the variadic parameter.
 
 - Since C++20, the ellipsis in a macro definition stands for "zero or more arguments".
-  That is, arguments to the variadic portion are optional. For example, the variadic
+  That is, arguments to the variadic parameter are optional. For example, the variadic
   macro `F(x,...)` may be invoked with just one argument (for the fixed parameter `x`).
 
 - Until C++20, both GCC and clang generate a warning if the `-pedantic` compiler
   option is set and a variadic macro is invoked without any argument for the variable
-  portion. Unless warnings are treated as errors (or `-pedantic` is not used), the code
-  compiles successfully.
+  parameter. However, unless warnings are treated as errors, the code compiles
+  successfully.
 
 - Visual Studio 2019 Version 16.5.5 does not produce warnings if a variadic macro is
-  invoked without any argument for the variadic portion. (Visual Studio documentation
-  does not list any complier option to control warnings in this case.)
+  invoked without any argument for the variadic parameter. (Visual Studio documentation
+  does not list any complier option to control warnings in this situation.)
 
-Listing D shows the use of variadic macros to optionally set the output stream. These
+Listing E shows the use of variadic macros to optionally set the output stream. These
 macros are enabled by:
 
 - the modular organization of macros (shown in Listing C);
@@ -260,21 +316,28 @@ macros are enabled by:
   an argument is supplied.
 
 ---
-{% include bookmark.html id="Listing D" %}
+{% include bookmark.html id="Listing E" %}
 
-##### Listing D: variadic print macros ([run this code](https://godbolt.org/z/jv1bqE))
+##### Listing E: variadic print macros ([run this code](https://godbolt.org/z/54nedM))
 
 ```cpp
 inline std::ostream& ostream(std::ostream& o = std::cout) { return o; }
 
+inline std::ostream& print_px(const char* px, std::ostream& o = std::cout) {
+    for(char c = *++px; !(c == ')' && !*(px+1)); o << c, c = *++px);
+    return o;
+}
+
 #define PRINT(x,...) ostream(__VA_ARGS__) << (x)
 #define PRINT_HX(h,x,...) PRINT(h,__VA_ARGS__) << ": " << (x)
 #define PRINT_X(x,...) PRINT_HX(#x,x,__VA_ARGS__)
+#define PRINT_PX(x,...) print_px(#x,ostream(__VA_ARGS__)) << ": " << (x)
 #define PRINT_HXT(h,x,t,...) PRINT_HX(h,x,__VA_ARGS__) << (t)
 
 #define PRINTLN(x,...) PRINT(x,__VA_ARGS__) << '\n'
 #define PRINT_HXLN(h,x,...) PRINT_HX(h,x,__VA_ARGS__) << '\n'
 #define PRINT_XLN(x,...) PRINT_HXLN(#x,x,__VA_ARGS__)
+#define PRINT_PXLN(x,...) print_px(#x,ostream(__VA_ARGS__)) << ": " << (x) << '\n';
 #define PRINT_HXTLN(h,x,t,...) PRINT_HXT(h,x,t,__VA_ARGS__) << '\n'
 
 int main() {
@@ -290,17 +353,17 @@ int main() {
 
 ---
 
-{% include bookmark.html id="6" %}
+{% include bookmark.html id="7" %}
 
-### 6.&nbsp;&nbsp; Summary
+### 7.&nbsp;&nbsp; Summary
 
-Illustration through printing and printing diagnostics are fairly common requirements,
-and macros are a convenient means to meet some of those requirements. Although function
-templates could be used instead of macros for the most part, only a macro can
-automatically generate the text of the expression from an expression. Also, using macros
-avoids compile-time template instantiations, but macros do not provide the type safety
-that templates do. With that said, macros are still the preferred approach due to their
-simplicity and ease of reuse.
+The use of printing for diagnosis and illustration is fairly common, and macros are a
+convenient means to meet some of those requirements. Although function templates could
+be used instead of macros for the most part, only a macro can automatically generate the
+text of the expression from an expression. Also, using macros avoids compile-time
+template instantiations, but macros do not provide the type safety that templates do.
+With that said, macros are still the preferred approach due to their simplicity and ease
+of reuse.
 
 Here are a few things to keep in mind when using the macros presented:
 
@@ -308,24 +371,35 @@ Here are a few things to keep in mind when using the macros presented:
   own source file (or include file). When copying, please include a link to this post so
   people can follow the rationale for the choices, and also to acknowledge the source.
 
-- Use the macros in Listing C if you print only to `std::cout` so that you do not
+- Use the macros in Listing D if you print only to `std::cout` so that you do not
   unnecessarily use variadic macros in your code: variadic macros without type checking
   can introduce errors. (See [Exercises 5 and 6](#7).)
 
-- Use the macros in Listing D if in the same program you need to print to different
+- Use the macros in Listing E if in the same program you need to print to different
   streams. Strictly speaking, invoking these macros without specifying an output stream
   requires C++20, but the macros works just fine in GCC, clang, and MSVC, even if the
   compiler produces warnings (depends on the options used).
 
 - Avoid using the macros in Listing B even though they provide the same functionality as
-  the macros in Listing C. The macros in Listings C and D are modular, reuse code, and
-  are more easily maintained. (See [Exercise 2](#7).)
+  the macros in Listing C. The macros in Listings C, D, and E are modular, reuse code,
+  and are more easily maintained. (See [Exercise 2](#7).)
 
-{% include bookmark.html id="7" %}
+- Use the macros `PRINT_PX` and `PRINT_PXLN` only if the expression to print is placed
+  inside parentheses and you do not want the outermost parentheses to be included in the
+  heading.
 
-### 7.&nbsp;&nbsp; Exercises
+{% include start-aside.html kind="info" %}
 
-1. Following the discussion in [Section 3](#3), does the following chaining of macro
+The programs linked in Listings D and E are set to C++11 due to features used in `main`
+function to illustrate solution aspects. The macros themselves work as far back as C++98.
+
+{% include end-aside.html %}
+
+{% include bookmark.html id="8" %}
+
+### 8.&nbsp;&nbsp; Exercises
+
+1. Based  on the discussion in [Section 3](#3), does the following chaining of macro
    invocations compile successfully? If yes, what does the program print? If the code
    does not compile, illustrate the reason with your own code segment that fully expands
    the macros in the statement shown. (Imagine you are the pre-processor.)
@@ -334,14 +408,15 @@ Here are a few things to keep in mind when using the macros presented:
    PRINT("hello") << PRINT(" world");
    ```
 
-2. The macros in Listings B, C, and D use `std::cout` as the default output stream, but
-   in some programs, a different stream such as `std::cerr` might be better. Modify each
-   of the programs linked in Listings B, C, and D to define a single symbol which stands
-   for the default stream to use and then use the new symbol in the remainder of the
-   program. Assume the programmer edits the definition of the symbol to set the default
-   output stream. In all programs, do **not** alter the `main` function in any way.
+2. The macros in Listings B, C, D, and E use `std::cout` as the default output stream,
+   but in some programs, a different stream such as `std::cerr` might be better. Modify
+   each of the programs linked in Listings B, C, D, E to define a single symbol which
+   stands for the default stream to use and then use the new symbol in the remainder of
+   the program. Assume the programmer edits the definition of the symbol to set the
+   default output stream. In all programs, do **not** alter the `main` function in any
+   way.
 
-   With all three programs changed as required, which of the three listings was "easier"
+   With all four programs changed as required, which of the three listings was "easier"
    to change (less effort to change and less error prone)? Why?
 
    **Note:** The length of this question notwithstanding, it is relatively simple to the
@@ -359,9 +434,9 @@ Here are a few things to keep in mind when using the macros presented:
    2. Re-write the `PRINT_XLN` macro such that the revised macro is still modularized
       and it produces the same correct result as the original. (This exercise is trivial.)
 
-4. Is it possible to write the variadic macro `PRINT(x,...)` in [Listing D](#listing-d)
+4. Is it possible to write the variadic macro `PRINT(x,...)` in [Listing E](#listing-e)
    such that it does **not** call the function `ostream` or any other function? That is,
-   is there an expression (that does not call a function) which can be used in the
+   is there an expression (that does not call some function) which can be used in the
    replacement list of the macro to choose the output stream bases on `__VA_­ARGS__`? If
    yes, what is that expression? If no such expression exists, why not? In either case,
    show a program to support your position. (Simply modify the program linked in Listing
@@ -371,7 +446,7 @@ Here are a few things to keep in mind when using the macros presented:
    `__VA_­ARGS__` is not empty. (By the way, what is the expression's value if
    `__VA_­ARGS__` is empty, and why that particular value?)
 
-5. Function `ostream` in [Listing D](#listing-d) requires its argument to be a reference
+5. Function `ostream` in [Listing E](#listing-e) requires its argument to be a reference
    to a `std::ostream` object, but the macros permit any value to be passed as argument
    to the variadic part of the macro. This is not really an issue because the compiler
    flags an error (try it). However, the error message can be long and somewhat tedious
@@ -380,13 +455,13 @@ Here are a few things to keep in mind when using the macros presented:
    {:start="a"}
    1. What change can be made to the macro definitions or the function `ostream` (or
       something related to function `ostream`) such that the compiler generates a
-      specific error message you choose? Alter the program linked in Listing D to make
+      specific error message you choose? Alter the program linked in Listing E to make
       the changes you propose, but do **not** change the `main` function in any way.
 
    2. After making the changes, do you recommend keeping the changes you made, or would
-      you rather just use Listing D as it is?
+      you rather just use Listing E as it is?
 
-6. Modify the program linked in [Listing C](#listing-c) to replace as many macros as
+6. Modify the program linked in [Listing D](#listing-d) to replace as many macros as
    possible with function templates. Do **not** make any changes to the `main` function
    except to match the names of the new functions developed. Then answer the following
    questions:
@@ -401,3 +476,11 @@ Here are a few things to keep in mind when using the macros presented:
       which approach do you recommend: using function templates as much as possible
       instead of macros, or using only macros? Justify your position in detail. Include
       a cogent note on the ease of use (reuse) of the solution each approach produces.
+
+7. Why does function `print_px` in [Listing D](#listing-d) print the string instead of
+   returning the input string after removing the outermost parentheses, and then letting
+   the calling macro to perform printing?
+
+8. Why do the macros `PRINT_PX` and `PRINT_PXLN` in [Listing E](#listing-e) call function
+   `ostream` to determine the output stream even though function `print_px` is able to
+   use `std::cout` as the output stream by default?
