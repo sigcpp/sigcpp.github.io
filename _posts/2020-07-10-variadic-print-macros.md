@@ -18,7 +18,7 @@ much educational value due to some tricky issues that need to be addressed in a 
 solution.
 
 **Update July 30, 2020:** I added a section about printing the text of an expression
-containing commas. I also added three exercises related to the new section.
+containing commas. I also added four exercises related to the new section.
 <!--more-->
 
 {% include start-aside.html kind="info" %}
@@ -329,8 +329,8 @@ macros are enabled by:
 ```cpp
 inline std::ostream& ostream(std::ostream& o = std::cout) { return o; }
 
-inline std::ostream& trim_print(const char* px, std::ostream& o = std::cout) {
-    for(++px; *(px+1); o << *px, ++px);
+inline std::ostream& trim_print(const char* z, std::ostream& o = std::cout) {
+    for(++z; *(z+1); o << *z, ++z);
     return o;
 }
 
@@ -485,14 +485,18 @@ as C++98.
       a cogent note on the ease of use (reuse) of the solution each approach produces.
 
 7. Why does function `trim_print` in [Listing D](#listing-d) print the string instead of
-   returning the input string after removing the outermost parentheses, and then letting
-   the calling macro to perform printing?
+   returning the input string after removing the first and last characters and let the
+   calling macro perform printing?
 
-8. Why do the macros `PRINT_PX` and `PRINT_PXLN` in [Listing E](#listing-e) call function
+8. Could the macros `PRINT_PX` and `PRINT_PXLN` in [Listing D](#listing-d) themselves
+   print the expression text without calling `trim_print` or another similar function?
+   If yes, rewrite the macros. If no, describe the reasons.
+
+9. Why do the macros `PRINT_PX` and `PRINT_PXLN` in [Listing E](#listing-e) call function
    `ostream` to determine the output stream even though function `trim_print` is able to
    use `std::cout` as the output stream by default?
 
-9. Why does the macro `PRINT_PXLN` not reuse `PRINT_PX`? If you believe it could reuse
-   `PRINT_PX` or another macro, revise the macros in the program linked in Listing E. Do
-   not change `main` function in anyway. Verify that the revised program produces the
-   same result as the original program.
+10. Why does the macro `PRINT_PXLN` not reuse `PRINT_PX` or another macro? If you
+    believe reuse is possible, revise the macros in the program linked in Listing E. Do
+    not change `main` function in anyway. Verify that the revised program produces the
+    same result as the original program.
