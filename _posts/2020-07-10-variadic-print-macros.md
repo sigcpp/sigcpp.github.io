@@ -214,34 +214,34 @@ reuse. (See [Exercise 2](#7).)
 
 ### 5.&nbsp;&nbsp; Handling commas in expression text
 
-The macros PRINT_X and PRINT_XLN in Listing C are quite handy, but they do not handle argument expressions involving commas, specifically if the commas are not inside
-parentheses. The code segment below provides  examples of expressions without and with
-issues:
+The macros `PRINT_X` and `PRINT_XLN` in Listing C do not handle argument expressions
+involving commas, specifically if the commas are not inside parentheses. The code segment
+below provides examples of expressions with and without issues:
 
 ```cpp
-    PRINT_XLN(f(1,2)); // OK: comma interpreted correctly
-    PRINT_XLN(1,2);    // error: comma not inside parens
-    PRINT_XLN(std::array<int,2>().size()); // error: comma not inside parens
+PRINT_XLN(f(1,2)); // OK: comma interpreted correctly
+PRINT_XLN(1,2);    // error: comma in the argument is not inside parens
+PRINT_XLN(std::array<int,2>().size()); // error: same as Line 2
 ```
 
 The obvious solution is to place offending expressions inside parentheses and force the
-pre-processor treat the parenthesized expression as one argument. However, that approach
-causes the heading to include parentheses, which may not be intended.
+pre-processor to treat the parenthesized expression as one argument. However, that
+approach causes the printed heading to include parentheses, which is likely undesired.
 
-A cleaner alternative is to place the offending expression in parentheses but not print
+A better solution is to place the offending expression in parentheses but not print
 the parentheses in the heading. Listing D shows this solution using two new macros
-`PRINT_PX` and `PRINT_PXLN` ("PX" stands for parenthesized expression) and a function
-`print_px`.
+`PRINT_PX` and `PRINT_PXLN` and a function `print_px`. ("PX" stands for parenthesized
+expression.)
 
 Macros `PRINT_PX` and `PRINT_PXLN` simply invoke function `print_px` with the text of the
 expression.
 
-Function `print_px` is admittedly very cryptic, and that is due to it being made as short
-as possible to keep the entire solution short (making it easy to paste into any program).
-This function receives a [constant C-string]({% include post-link.html id="7#3" %})
+Function `print_px` receives a [constant C-string]({% include post-link.html id="7#3" %})
 (because `#x` in the calling macro is guaranteed to be a C-string literal). It assumes
 the C-string is enclosed in parentheses and simply prints everything in the C-string
-except the outermost parentheses.
+except the outermost parentheses. As show, this function is admittedly cryptic, and that
+is due to making the code made as short as possible to keep the entire solution short
+(in turn making it easy to paste the entire solution into any program).
 
 ---
 {% include bookmark.html id="Listing D" %}
@@ -484,3 +484,6 @@ function to illustrate solution aspects. The macros themselves work as far back 
 8. Why do the macros `PRINT_PX` and `PRINT_PXLN` in [Listing E](#listing-e) call function
    `ostream` to determine the output stream even though function `print_px` is able to
    use `std::cout` as the output stream by default?
+
+9. Rewrite function `print_px` in Listing D such that the code is clear and more
+   maintainable. (This is a simple exercise, though it may be non-trivial for beginners.)
