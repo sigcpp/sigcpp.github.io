@@ -16,6 +16,9 @@ macros to satisfy requirements. In the process, the post also touches on the dec
 There is decidedly not much to the macros, but I chose to describe them because there is
 much educational value due to some tricky issues that need to be addressed in a practical
 solution.
+
+**Update July 30, 2020:** I added a section about printing the text of an expression
+containing commas. I also added three exercises related to the new section.
 <!--more-->
 
 {% include start-aside.html kind="info" %}
@@ -216,7 +219,7 @@ reuse. (See [Exercise 2](#7).)
 
 The macros `PRINT_X` and `PRINT_XLN` in Listing C do not handle argument expressions
 involving commas, specifically if the commas are not inside parentheses. The code segment
-below provides examples of expressions with and without issues:
+below shows example expressions with and without issues:
 
 ```cpp
 PRINT_XLN(f(1,2)); // OK: comma interpreted correctly
@@ -224,9 +227,9 @@ PRINT_XLN(1,2);    // error: comma in the argument is not inside parens
 PRINT_XLN(std::array<int,2>().size()); // error: same as Line 2
 ```
 
-The obvious solution is to place offending expressions inside parentheses and force the
-pre-processor to treat the parenthesized expression as one argument. However, that
-approach causes the printed heading to include parentheses, which is likely undesired.
+The obvious solution is to place offending expressions inside parentheses, thus forcing
+the pre-processor to treat the parenthesized expression as one argument. However, that
+approach causes the printed heading to include parentheses, which is likely not desired.
 
 A better solution is to place the offending expression in parentheses but not print
 the parentheses in the heading. Listing D shows this solution using two new macros
@@ -235,9 +238,15 @@ expression.)
 
 Macros `PRINT_PX` and `PRINT_PXLN` simply invoke function `trim_print` with the text of
 the expression. Function `trim_print` receives a [constant C-string]({% include post-link.html id="7#3" %})
-(`#x` in the calling macro is guaranteed to be a C-string literal). It assumes the
-C-string is not empty and prints everything in the C-string except the first and last
-character.
+(because `#x` in the calling macro is guaranteed to be a C-string literal). It assumes
+the length of C-string is at least two and prints everything in the C-string except the
+first and last character.
+
+{% include start-aside.html kind="warn" show_icon=true %}
+
+Use `PRINT_PX` and `PRINT_PXLN` only if an expression passed to `PRINT_X` and `PRINT_XLN` needs to be enclosed in parentheses.
+
+{% include end-aside.html %}
 
 ---
 {% include bookmark.html id="Listing D" %}
@@ -275,7 +284,7 @@ A [variadic macro](https://en.cppreference.com/w/cpp/preprocessor/replace) is de
 placing an ellipsis (`...`) after all the fixed parameters in the macro definition. (It
 is OK for a macro to have no fixed parameters and receive only variable number of
 arguments.) The token `__VA_ARGS__` in the replacement list of a variadic macro
-represents the actual arguments passed for the variadic portion.
+represents the actual arguments passed for the variadic parameter.
 
 The following key information applies to variadic macros:
 
@@ -381,13 +390,14 @@ Here are a few things to keep in mind when using the macros presented:
   and are more easily maintained. (See [Exercise 2](#7).)
 
 - Use the macros `PRINT_PX` and `PRINT_PXLN` only if the expression to print is placed
-  inside parentheses and you do not want the outermost parentheses to be included in the
+  inside parentheses and you want the outermost parentheses to be excluded in the
   heading.
 
 {% include start-aside.html kind="info" %}
 
-The programs linked in Listings D and E are set to C++11 due to features used in `main`
-function to illustrate solution aspects. The macros themselves work as far back as C++98.
+The programs linked in Listings D and E are set to comply with C++11 due to the features
+used to illustrate the solution. However, the macros in those listings work as far back
+as C++98.
 
 {% include end-aside.html %}
 
@@ -395,7 +405,7 @@ function to illustrate solution aspects. The macros themselves work as far back 
 
 ### 8.&nbsp;&nbsp; Exercises
 
-1. Based  on the discussion in [Section 3](#3), does the following chaining of macro
+1. Based on the discussion in [Section 3](#3), does the following chaining of macro
    invocations compile successfully? If yes, what does the program print? If the code
    does not compile, illustrate the reason with your own code segment that fully expands
    the macros in the statement shown. (Imagine you are the pre-processor.)
@@ -481,5 +491,7 @@ function to illustrate solution aspects. The macros themselves work as far back 
    `ostream` to determine the output stream even though function `trim_print` is able to
    use `std::cout` as the output stream by default?
 
-9. Rewrite function `trim_print` in Listing D such that the code is clear and more
-   maintainable. (This is a simple exercise, though it may be non-trivial for beginners.)
+9. Why does the macro `PRINT_PXLN` not reuse `PRINT_PX`? If you believe it could reuse
+   `PRINT_PX` or another macro, revise the macros in the program linked in Listing E. Do
+   not change `main` function in anyway. Verify that the revised program produces the
+   same result as the original program.
