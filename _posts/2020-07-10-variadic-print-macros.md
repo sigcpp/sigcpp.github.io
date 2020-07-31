@@ -230,37 +230,33 @@ approach causes the printed heading to include parentheses, which is likely unde
 
 A better solution is to place the offending expression in parentheses but not print
 the parentheses in the heading. Listing D shows this solution using two new macros
-`PRINT_PX` and `PRINT_PXLN` and a function `print_px`. ("PX" stands for parenthesized
+`PRINT_PX` and `PRINT_PXLN` and a function `trim_print`. ("PX" stands for parenthesized
 expression.)
 
-Macros `PRINT_PX` and `PRINT_PXLN` simply invoke function `print_px` with the text of the
-expression.
-
-Function `print_px` receives a [constant C-string]({% include post-link.html id="7#3" %})
-(because `#x` in the calling macro is guaranteed to be a C-string literal). It assumes
-the C-string is enclosed in parentheses and simply prints everything in the C-string
-except the outermost parentheses. As show, this function is admittedly cryptic, and that
-is due to making the code made as short as possible to keep the entire solution short
-(in turn making it easy to paste the entire solution into any program).
+Macros `PRINT_PX` and `PRINT_PXLN` simply invoke function `trim_print` with the text of
+the expression. Function `trim_print` receives a [constant C-string]({% include post-link.html id="7#3" %})
+(`#x` in the calling macro is guaranteed to be a C-string literal). It assumes the
+C-string is not empty and prints everything in the C-string except the first and last
+character.
 
 ---
 {% include bookmark.html id="Listing D" %}
 
-##### Listing D: handling commas in expression text ([run this code](https://godbolt.org/z/eYG541))
+##### Listing D: handling commas in expression text ([run this code](https://godbolt.org/z/8drhW9))
 
 ```cpp
-std::ostream& print_px(const char* px) {
-    for(char c = *++px; !(c == ')' && !*(px+1)); std::cout << c, c = *++px);
+std::ostream& trim_print(const char* z) {
+    for(++z; *(z+1); std::cout << *z, ++z);
     return std::cout;
 }
 
-#define PRINT_PX(x) print_px(#x) << ": " << (x)
-#define PRINT_PXLN(x) print_px(#x) << ": " << (x) << '\n';
+#define PRINT_PX(x) trim_print(#x) << ": " << (x)
+#define PRINT_PXLN(x) trim_print(#x) << ": " << (x) << '\n';
 
 int main() {
     PRINT_XLN(f(1,2)); // continue to use PRINT_XLN
-    PRINT_PXLN((1,2)); // parenthesize and use the custom macro
-    PRINT_PXLN((std::array<int,2>().size())); // parenthesize and use the custom macro
+    PRINT_PXLN((1,2)); // parenthesize and use custom macro
+    PRINT_PXLN((std::array<int,2>().size())); // parenthesize and use custom macro
 }
 ```
 
@@ -318,26 +314,26 @@ macros are enabled by:
 ---
 {% include bookmark.html id="Listing E" %}
 
-##### Listing E: variadic print macros ([run this code](https://godbolt.org/z/54nedM))
+##### Listing E: variadic print macros ([run this code](https://godbolt.org/z/MYGq14))
 
 ```cpp
 inline std::ostream& ostream(std::ostream& o = std::cout) { return o; }
 
-inline std::ostream& print_px(const char* px, std::ostream& o = std::cout) {
-    for(char c = *++px; !(c == ')' && !*(px+1)); o << c, c = *++px);
+inline std::ostream& trim_print(const char* px, std::ostream& o = std::cout) {
+    for(++px; *(px+1); o << *px, ++px);
     return o;
 }
 
 #define PRINT(x,...) ostream(__VA_ARGS__) << (x)
 #define PRINT_HX(h,x,...) PRINT(h,__VA_ARGS__) << ": " << (x)
 #define PRINT_X(x,...) PRINT_HX(#x,x,__VA_ARGS__)
-#define PRINT_PX(x,...) print_px(#x,ostream(__VA_ARGS__)) << ": " << (x)
+#define PRINT_PX(x,...) trim_print(#x,ostream(__VA_ARGS__)) << ": " << (x)
 #define PRINT_HXT(h,x,t,...) PRINT_HX(h,x,__VA_ARGS__) << (t)
 
 #define PRINTLN(x,...) PRINT(x,__VA_ARGS__) << '\n'
 #define PRINT_HXLN(h,x,...) PRINT_HX(h,x,__VA_ARGS__) << '\n'
 #define PRINT_XLN(x,...) PRINT_HXLN(#x,x,__VA_ARGS__)
-#define PRINT_PXLN(x,...) print_px(#x,ostream(__VA_ARGS__)) << ": " << (x) << '\n';
+#define PRINT_PXLN(x,...) trim_print(#x,ostream(__VA_ARGS__)) << ": " << (x) << '\n';
 #define PRINT_HXTLN(h,x,t,...) PRINT_HXT(h,x,t,__VA_ARGS__) << '\n'
 
 int main() {
@@ -378,7 +374,7 @@ Here are a few things to keep in mind when using the macros presented:
 - Use the macros in Listing E if in the same program you need to print to different
   streams. Strictly speaking, invoking these macros without specifying an output stream
   requires C++20, but the macros works just fine in GCC, clang, and MSVC, even if the
-  compiler produces warnings (depends on the options used).
+  compiler produces warnings (unless warnings are treated as errors).
 
 - Avoid using the macros in Listing B even though they provide the same functionality as
   the macros in Listing C. The macros in Listings C, D, and E are modular, reuse code,
@@ -477,13 +473,13 @@ function to illustrate solution aspects. The macros themselves work as far back 
       instead of macros, or using only macros? Justify your position in detail. Include
       a cogent note on the ease of use (reuse) of the solution each approach produces.
 
-7. Why does function `print_px` in [Listing D](#listing-d) print the string instead of
+7. Why does function `trim_print` in [Listing D](#listing-d) print the string instead of
    returning the input string after removing the outermost parentheses, and then letting
    the calling macro to perform printing?
 
 8. Why do the macros `PRINT_PX` and `PRINT_PXLN` in [Listing E](#listing-e) call function
-   `ostream` to determine the output stream even though function `print_px` is able to
+   `ostream` to determine the output stream even though function `trim_print` is able to
    use `std::cout` as the output stream by default?
 
-9. Rewrite function `print_px` in Listing D such that the code is clear and more
+9. Rewrite function `trim_print` in Listing D such that the code is clear and more
    maintainable. (This is a simple exercise, though it may be non-trivial for beginners.)
