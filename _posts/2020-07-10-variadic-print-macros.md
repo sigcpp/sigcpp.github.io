@@ -189,7 +189,7 @@ points are worth noting about the modularized macros:
 {% include start-aside.html kind="info" %}
 
 Use the modularized macros in Listing C (better yet, use those in Listing D), instead of
-using the initial macros in Listing B: the macros in Listing C and D are easier to
+using the initial macros in Listing B: the macros in Listings C and D are easier to
 maintain due to code reuse. (See [Exercise 2](#7).)
 
 {% include end-aside.html %}
