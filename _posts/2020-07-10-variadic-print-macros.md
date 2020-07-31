@@ -188,9 +188,9 @@ points are worth noting about the modularized macros:
 
 {% include start-aside.html kind="info" %}
 
-Use the modularized macros shown in Listing C, instead of using the initial
-macros shown in Listing B: the macros in Listing C are easier to maintain due to code
-reuse. (See [Exercise 2](#7).)
+Use the modularized macros in Listing C (better yet, use those in Listing D), instead of
+using the initial macros in Listing B: the macros in Listing C and D are easier to
+maintain due to code reuse. (See [Exercise 2](#7).)
 
 {% include end-aside.html %}
 
@@ -244,7 +244,8 @@ first and last character.
 
 {% include start-aside.html kind="warn" show_icon=true %}
 
-Use `PRINT_PX` and `PRINT_PXLN` only if an expression passed to `PRINT_X` and `PRINT_XLN` needs to be enclosed in parentheses.
+Use `PRINT_PX` and `PRINT_PXLN` only when an expression passed to `PRINT_X` and `PRINT_XLN` needs to be enclosed in parentheses and you want to exclude the parentheses
+from the printed heading.
 
 {% include end-aside.html %}
 
