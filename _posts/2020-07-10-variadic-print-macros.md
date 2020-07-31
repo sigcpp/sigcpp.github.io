@@ -91,7 +91,7 @@ Because Use Case 3 is satisfied only with a macro, and because the other cases a
 easily satisfied using 1-line macros, it is better to implement all cases with just
 macros. Plus, the resulting macros can be easily pasted into any code where they are
 needed. In contrast, function templates would be quite long and not as easy to reuse
-(but they do provide better type safety; see [Exercises 5 and 6](#7)).
+(but they do provide better type safety; see [Exercises 5 and 6](#8)).
 
 Listing B shows an initial set of function-like macros to collectively implement the
 four use cases identified: one macro per use case. The listing also shows the macros
@@ -183,14 +183,14 @@ points are worth noting about the modularized macros:
   statements.
 
 - The modularization of `PRINT_XLN` follows a different pattern than what the other
-  new-line inserting macros follow. [Exercise 3](#7) explores the reason for the
+  new-line inserting macros follow. [Exercise 3](#8) explores the reason for the
   difference.
 
 {% include start-aside.html kind="info" %}
 
 Use the modularized macros in Listing C (better yet, use those in Listing D), instead of
 using the initial macros in Listing B: the macros in Listings C and D are easier to
-maintain due to code reuse. (See [Exercise 2](#7).)
+maintain due to code reuse. (See [Exercise 2](#8).)
 
 {% include end-aside.html %}
 
@@ -379,7 +379,7 @@ Here are a few things to keep in mind when using the macros presented:
 
 - Use the macros in Listing D if you print only to `std::cout` so that you do not
   unnecessarily use variadic macros in your code: variadic macros without type checking
-  can introduce errors. (See [Exercises 5 and 6](#7).)
+  can introduce errors. (See [Exercises 5 and 6](#8).)
 
 - Use the macros in Listing E if in the same program you need to print to different
   streams. Strictly speaking, invoking these macros without specifying an output stream
@@ -388,7 +388,7 @@ Here are a few things to keep in mind when using the macros presented:
 
 - Avoid using the macros in Listing B even though they provide the same functionality as
   the macros in Listing C. The macros in Listings C, D, and E are modular, reuse code,
-  and are more easily maintained. (See [Exercise 2](#7).)
+  and are more easily maintained. (See [Exercise 2](#8).)
 
 - Use the macros `PRINT_PX` and `PRINT_PXLN` only if the expression to print is placed
   inside parentheses and you want the outermost parentheses to be excluded in the
