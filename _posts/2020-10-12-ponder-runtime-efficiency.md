@@ -77,9 +77,9 @@ Do **not** use compiler options (such as `-O1`) to optimize the generated code. 
 is to study the impact of implementation choices without compiler optimization. However,
 it is OK to enable optimization as part of an extended analysis.
 
-Refrain from overthinking, over-optimizing, or developing clever code that is not
-realistic: this problem does **not** deserve such effort. Instead, develop distinct and
-realistic solutions that illustrate the impact of implementation choices on runtime space
-and time needs.
+Refrain from overthinking, over-optimizing, or developing clever code that is unrealistic:
+this problem does **not** deserve such effort. Instead, develop distinct and realistic
+solutions that illustrate the impact of implementation choices on runtime space and time
+needs.
 
 {% include end-aside.html %}
