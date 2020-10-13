@@ -16,9 +16,9 @@ introductory course.
 
 This post describes the problem and invites students to develop alternative solutions and
 analyze the runtime space and time (memory and speed) needs of the solutions. I encourage
-students who have completed a first course in C++ to ponder this problem, even if
-(and especially if) they have completed multiple C++ courses. The overall goal is to
-become aware of implementation choices and their consequences.
+students who have completed a course in C++ to ponder this problem, especially if they
+have completed multiple C++ courses. The overall goal is to become aware of implementation
+choices and their consequences.
 <!--more-->
 
 {% include bookmark.html id="1" %}
@@ -26,9 +26,9 @@ become aware of implementation choices and their consequences.
 ### 1.&nbsp;&nbsp; Problem description
 
 The problem is to read a whole number greater than zero from the user and print the
-number as a word as long as the number is under 10. For example, if the user enters `1`,
-print the text `one`; if the user enters `2`, print `two`; and so on. If the input number
-exceeds nine, just print the text `greater than nine`.
+number as a word as long as the number does not exceed nine. For example, if the user
+enters `1`, print the text `one`; if the user enters `2`, print `two`; and so on. If the
+input number exceeds nine, just print the text `greater than nine`.
 
 Example runs of a program might look as follows in a Microsoft Windows environment, where
 `2` and `15` are values the user inputs at run time, and `as-text.exe` is the executable
@@ -37,11 +37,11 @@ file's name:
 ```console
 C:\>as-text.exe
 Enter a whole number greater than 0: 2
-Number in text: two
+Number as text: two
 
 C:\>as-text.exe
 Enter a whole number greater than 0: 15
-Number in text: greater than nine
+Number as text: greater than nine
 ```
 
 Obviously, at the point when selection statements are introduced in the course, cascaded
@@ -52,8 +52,8 @@ runtime space and time.
 
 {% include start-aside.html kind="info" %}
 
-Sorry, no link to the page that discusses the problem because that site teaches some bad
-habits. For example, it recommends including `<bits/stdc++.h>`.
+Sorry, no link to the page that discusses the problem because the source site teaches some
+bad habits. For example, it recommends including `<bits/stdc++.h>`.
 
 {% include end-aside.html %}
 
@@ -61,15 +61,15 @@ habits. For example, it recommends including `<bits/stdc++.h>`.
 
 ### 2.&nbsp;&nbsp; Exercise
 
-Write a **baseline** C++ program using just selection statements to solve the problem
-and analyze its space and time needs at run time. Then **revise** the program and
-analyze its space and time needs in relation to the baseline. If you are able to write
-only the baseline version, do attempt to analyze its space and time needs.
+Write a **baseline** C++ program using just selection statements to solve the problem and
+analyze its runtime space and time needs. Then **revise** the program and analyze its
+space and time needs in relation to the baseline. If you are able to write only the
+baseline version, please do attempt to analyze its space and time needs.
 
 I recommend using this pre-configured [Compiler Explorer link](https://godbolt.org/z/xvaY1n)
-to develop the baseline program and the revision. I also recommend placing the analysis
-text in a GitHub gist or repo. Please follow the instructions included at the end of this
-post to submit solutions.
+to develop the baseline program and the revision. I also recommend placing the text of
+your analysis in a GitHub gist or repo. Please follow the instructions included at the end
+of this post to submit solutions.
 
 {% include start-aside.html kind="warn" show_icon=true %}
 
