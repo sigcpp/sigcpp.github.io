@@ -6,6 +6,7 @@ authors: smurthys
 cpp_level: introductory
 cpp_versions: "Any C++" 
 reader_activity: exercise
+tweet_url: https://twitter.com/sigcpp/status/1316031474999721985
 ---
 
 A student recently brought me a simple introductory-level problem found on the web and
