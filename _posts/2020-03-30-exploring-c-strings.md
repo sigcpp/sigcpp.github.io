@@ -4,7 +4,7 @@ title: "Exploring C-strings"
 date: 2020-03-30
 authors: smurthys
 cpp_level: intermediate
-cpp_versions: "Any"
+cpp_versions: "Any C++"
 reader_activity: quiz
 tweet_url: https://twitter.com/sigcpp/status/1270054179030077447
 ---
