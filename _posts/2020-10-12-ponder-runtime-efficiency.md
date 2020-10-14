@@ -67,7 +67,7 @@ analyze its runtime space and time needs. Then **revise** the program and analyz
 space and time needs in relation to the baseline. If you are able to write only the
 baseline version, please do attempt to analyze its space and time needs.
 
-I recommend using this pre-configured [Compiler Explorer link](https://godbolt.org/z/xvaY1n)
+I recommend using this pre-configured [Compiler Explorer link](https://godbolt.org/z/da9c8c)
 to develop the baseline program and the revision. I also recommend placing the text of
 your analysis in a GitHub gist or repo. Please follow the instructions included at the end
 of this post to submit solutions.
