@@ -5,7 +5,7 @@ date: 2020-10-12
 authors: smurthys
 cpp_level: introductory
 cpp_versions: "Any C++" 
-reader_activity: exercise
+reader_activity: exercises
 tweet_url: https://twitter.com/sigcpp/status/1316031474999721985
 ---
 
@@ -53,34 +53,59 @@ runtime space and time.
 
 {% include start-aside.html kind="info" %}
 
-Sorry, no link to the page that discusses the problem because the source site teaches some
-bad habits. For example, it recommends including `<bits/stdc++.h>`.
+Sorry, no link to the page that discusses the problem because that site teaches some bad
+habits. For example, it recommends including `<bits/stdc++.h>`.
 
 {% include end-aside.html %}
 
 {% include bookmark.html id="2" %}
 
-### 2.&nbsp;&nbsp; Exercise
+### 2.&nbsp;&nbsp; Exercises
 
-Write a **baseline** C++ program using just selection statements to solve the problem and
-analyze its runtime space and time needs. Then **revise** the program and analyze its
-space and time needs in relation to the baseline. If you are able to write only the
-baseline version, please do attempt to analyze its space and time needs.
+Each exercise asks to develop two versions of a program. I recommend using this
+pre-configured [Compiler Explorer link](https://godbolt.org/z/da9c8c) to develop the
+two versions. I also recommend placing the text of your analysis in a GitHub gist or
+repo.
 
-I recommend using this pre-configured [Compiler Explorer link](https://godbolt.org/z/da9c8c)
-to develop the baseline program and the revision. I also recommend placing the text of
-your analysis in a GitHub gist or repo. Please follow the instructions included at the end
-of this post to submit solutions.
+For simplicity, omit validating the state of the input stream object `std::cin` in all
+programs developed for the exercises.
+
+1. Write a **baseline** C++ program using just selection statements to solve the problem
+   and analyze its runtime space and time needs. Then **revise** the program and analyze
+   the space and time needs of the revised program in relation to the baseline. If you
+   are able to write only the baseline version, please do attempt to analyze its space
+   and time needs.
+
+   Both versions of the program should have only one function: the obligatory `main`.
+
+2. Write a function `as_text` which receives a number and returns the text version of the
+   number using the same logic described in Section 1. Do **not** perform any user
+   interaction (input or output) in the function. In `main`, read a number from the user,
+   use function `as_text` to obtain the text version of the number, and print the text
+   version.
+
+   Develop two programs: one where the `as_text` function corresponds to the baseline
+   version developed for Exercise 1; another where `as_text` corresponds to the revised
+   version developed for Exercise 1.
+
+   Write a note on how the runtime space and time needs of the programs in this exercise
+   differ from those of their corresponding programs in Exercise 1. Also describe what
+   (if any) changes you made to the programs of Exercise 1 due to observations as you
+   developed the programs for this exercise. Include a rationale for any changes made.
+
+   **Note:** This exercise simply asks to move the conversion logic that is in `main`
+   function in Exercise 1 to its own function such that `main` now performs only user
+   interaction and calls the new function `as_text`.
 
 {% include start-aside.html kind="warn" show_icon=true %}
 
 Do **not** use compiler options (such as `-O1`) to optimize the generated code. The goal
-is to study the impact of implementation choices without compiler optimization. However,
-it is OK to enable optimization as part of an extended analysis.
+of the exercises is to study the impact of implementation choices without compiler
+optimization. However, it is OK to enable optimization as part of an extended analysis.
 
-Refrain from overthinking, over-optimizing, or developing clever code that is unrealistic:
-this problem does **not** deserve such effort. Instead, develop distinct and realistic
-solutions that illustrate the impact of implementation choices on runtime space and time
-needs.
+Refrain from overthinking, over-optimizing, or developing clever code that is
+unrealistic: these exercises do **not** require or deserve much effort. Instead, develop
+distinct and realistic solutions that illustrate the impact of implementation choices on
+runtime space and time needs.
 
 {% include end-aside.html %}
