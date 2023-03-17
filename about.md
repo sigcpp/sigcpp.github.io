@@ -9,7 +9,7 @@ teachers, and practitioners to freely discuss, present, write, and practice all 
 Although activities focus on C++, much of the material should translate to comparable
 languages such as Java and C\#.
 
-SIGCPP was formed by [Sean Murthy](https://smurthys.github.io) in May 2018.
+SIGCPP was founded by [Sean Murthy](https://smurthys.github.io) in May 2018.
 
 ### Activities
 
@@ -39,13 +39,20 @@ on C++. The pre-requisite knowledge does not have to come from a university cour
 
 All members are expected to consistently and actively participate in the SIG's activities;
 freely share ideas, code, and knowledge with all members; and otherwise interact with all
-members in a fair and friendly manner that is consistent with the SIG's mission.
+members in a fair and friendly manner that is consistent with the SIG's mission. 
 
 Members are expected to provide constructive feedback. They should also be willing to both
 receive and apply feedback. All interactions should foster learning.
 
 Moderators attempt to work with lurkers to get them to actively participate in the SIG's
 activities. Habitually inactive members will quite likely lose membership.
+
+No SIGCPP member may discriminate against any person (even non-members) or conduct
+themselves in any manner that puts another person at a disadvantage simply because of their
+personal beliefs, preferences, or circumstances such as nationality, gender, sexuality,
+presentation (natural or not), place of birth, lineage, and name. (Not a conclusive list.) 
+Moderators may consider member conduct even in activities not related to SIGCPP in
+determining a member's affiliation with the SIG.  
 
 ### Meetings
 
