@@ -47,12 +47,17 @@ receive and apply feedback. All interactions should foster learning.
 Moderators attempt to work with lurkers to get them to actively participate in the SIG's
 activities. Habitually inactive members will quite likely lose membership.
 
-No SIGCPP member may discriminate against any person (even non-members) or conduct
-themselves in any manner that puts another person at a disadvantage simply because of their
-personal beliefs, preferences, or circumstances such as nationality, gender, sexuality,
-presentation (natural or not), place of birth, lineage, and name. (Not a conclusive list.) 
-Moderators may consider member conduct even in activities not related to SIGCPP in
-determining a member's affiliation with the SIG.  
+No member may discriminate against any person; harass any person physically,
+mentally, sexually, or otherwise; or conduct themselves in any manner that hurts or
+puts another person at a disadvantage. Members may also not hold or use someone's
+personal beliefs, preferences, or circumstances (including but not limited to
+nationality, gender, sexuality, presentation, place of birth, lineage, and name)
+against them. These exepctations apply to members even if the other person in
+question is not a member.
+
+Moderators may consider member conduct even in non-SIGCPP activities in determining
+a member's adherence with this code of conduct. The penalty for code violation
+depends on incident particulars and includes could potential loss of membership.
 
 ### Meetings
 
@@ -67,5 +72,5 @@ attendees should be willing to share their screen during the meeting.
 
 Attendees should be able to edit and run C++ programs, browse web pages, and read
 documentation on their own computer during meetings. They may use any local/online C++
-environment that supports at least C++ 17. Members frequently use GCC and Microsoft Visual
-Studio.
+environment that supports at least C++ 17. Members frequently use GCC, VS Code,
+and Compiler Explorer.

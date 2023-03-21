@@ -19,5 +19,3 @@ free.
 - Built using a modified version of Jekyll theme [Dinky](https://github.com/pages-themes/dinky)
 - [Jekyll](https://jekyllrb.com/docs/) 
 - [Jonathan McGlone](http://jmcglone.com/guides/github-pages/)
-
-
