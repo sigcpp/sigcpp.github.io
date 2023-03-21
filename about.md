@@ -57,7 +57,7 @@ question is not a member.
 
 Moderators may consider member conduct even in non-SIGCPP activities in determining
 a member's adherence with this code of conduct. The penalty for code violation
-depends on incident particulars and includes could potential loss of membership.
+depends on incident particulars and includes potential loss of membership.
 
 ### Meetings
 
